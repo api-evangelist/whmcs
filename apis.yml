@@ -10,7 +10,7 @@ image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - API
 created: '2025-02-09'
-modified: '2025-02-09'
+modified: '2026-03-16'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/whmcs/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -20,12 +20,14 @@ apis:
     description: >-
       Web Hosting Automation Made EasyAll the tools you need to start a web
       hosting business today. 
-    humanURL: ' https://www.whmcs.com/'
+    humanURL: https://developers.whmcs.com/
     tags:
-      - API
+      - Web Hosting
+      - Billing
+      - Automation
     properties:
       - type: Documentation
-        url: ' https://www.whmcs.com/'
+        url: https://developers.whmcs.com/
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
