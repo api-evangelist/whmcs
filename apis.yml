@@ -1,8 +1,8 @@
 aid: whmcs
 name: WHMCS
 description: >-
-  Web Hosting Automation Made EasyAll the tools you need to start a web hosting
-  business today. 
+  Web Hosting Automation Made EasyAll the tools you need to start a web hosting business
+  today.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -18,8 +18,8 @@ apis:
   - aid: whmcs:whmcs
     name: WHMCS
     description: >-
-      Web Hosting Automation Made EasyAll the tools you need to start a web
-      hosting business today. 
+      Web Hosting Automation Made EasyAll the tools you need to start a web hosting
+      business today.
     humanURL: https://developers.whmcs.com/
     tags:
       - Web Hosting
