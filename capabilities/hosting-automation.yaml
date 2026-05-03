@@ -1,0 +1,362 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WHMCS Hosting Automation"
+  description: >-
+    Unified workflow for web hosting business automation combining client onboarding,
+    billing management, support ticket handling, and domain management via WHMCS.
+    Designed for hosting provider operations teams and resellers.
+  tags:
+    - Web Hosting
+    - Billing Automation
+    - Client Management
+    - Domain Management
+    - Support
+    - WHMCS
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WHMCS_API_IDENTIFIER: WHMCS_API_IDENTIFIER
+      WHMCS_API_SECRET: WHMCS_API_SECRET
+      WHMCS_BASE_URL: WHMCS_BASE_URL
+
+capability:
+  consumes:
+    - import: whmcs
+      location: ./shared/whmcs.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: hosting-automation-api
+      description: "Unified REST API for WHMCS hosting business automation."
+      resources:
+        - path: /v1/clients
+          name: clients
+          description: "Client account management."
+          operations:
+            - method: GET
+              name: list-clients
+              description: "Retrieve a paginated list of client accounts."
+              call: "whmcs.get-clients"
+              with:
+                limitstart: "rest.limitstart"
+                limitnum: "rest.limitnum"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/clients/{id}
+          name: client-details
+          description: "Single client account details."
+          operations:
+            - method: GET
+              name: get-client
+              description: "Retrieve detailed information for a specific client."
+              call: "whmcs.get-client-details"
+              with:
+                clientid: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/orders
+          name: orders
+          description: "Order management."
+          operations:
+            - method: GET
+              name: list-orders
+              description: "Retrieve a list of orders with optional filtering."
+              call: "whmcs.get-orders"
+              with:
+                userid: "rest.userid"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/invoices
+          name: invoices
+          description: "Invoice and billing management."
+          operations:
+            - method: GET
+              name: list-invoices
+              description: "Retrieve invoices with optional status and client filtering."
+              call: "whmcs.get-invoices"
+              with:
+                userid: "rest.userid"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/invoices/{id}
+          name: invoice-details
+          description: "Single invoice details."
+          operations:
+            - method: GET
+              name: get-invoice
+              description: "Retrieve a specific invoice by ID."
+              call: "whmcs.get-invoice"
+              with:
+                invoiceid: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/tickets
+          name: tickets
+          description: "Support ticket management."
+          operations:
+            - method: GET
+              name: list-tickets
+              description: "Retrieve a list of support tickets."
+              call: "whmcs.get-tickets"
+              with:
+                clientid: "rest.clientid"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: open-ticket
+              description: "Open a new support ticket."
+              call: "whmcs.open-ticket"
+              with:
+                deptid: "rest.deptid"
+                subject: "rest.subject"
+                message: "rest.message"
+                priority: "rest.priority"
+                clientid: "rest.clientid"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/domains/whois
+          name: domain-whois
+          description: "Domain availability and WHOIS lookup."
+          operations:
+            - method: GET
+              name: check-domain
+              description: "Perform a WHOIS lookup on a domain name."
+              call: "whmcs.domain-whois"
+              with:
+                domain: "rest.domain"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/system/stats
+          name: system-stats
+          description: "System statistics and monitoring."
+          operations:
+            - method: GET
+              name: get-stats
+              description: "Retrieve WHMCS system statistics and revenue metrics."
+              call: "whmcs.get-stats"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/auth/validate
+          name: auth-validate
+          description: "Client authentication."
+          operations:
+            - method: POST
+              name: validate-login
+              description: "Validate client login credentials."
+              call: "whmcs.validate-login"
+              with:
+                email: "rest.email"
+                password2: "rest.password2"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/auth/sso
+          name: sso-token
+          description: "SSO token generation."
+          operations:
+            - method: POST
+              name: create-sso-token
+              description: "Create an SSO token for client portal access."
+              call: "whmcs.create-sso-token"
+              with:
+                client_id: "rest.client_id"
+                sso_destination: "rest.sso_destination"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: hosting-automation-mcp
+      transport: http
+      description: "MCP server for AI-assisted WHMCS hosting business automation."
+      tools:
+        - name: list-clients
+          description: "Retrieve a list of WHMCS client accounts. Use for customer lookup and account management workflows."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-clients"
+          with:
+            limitstart: "tools.limitstart"
+            limitnum: "tools.limitnum"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-client-details
+          description: "Retrieve detailed information for a specific WHMCS client by ID or email."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-client-details"
+          with:
+            clientid: "tools.clientid"
+            email: "tools.email"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: add-client
+          description: "Create a new client account in WHMCS."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "whmcs.add-client"
+          with:
+            firstname: "tools.firstname"
+            lastname: "tools.lastname"
+            email: "tools.email"
+            address1: "tools.address1"
+            city: "tools.city"
+            country: "tools.country"
+            postcode: "tools.postcode"
+            phonenumber: "tools.phonenumber"
+            password2: "tools.password2"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-orders
+          description: "Retrieve a list of WHMCS orders, optionally filtered by client or status."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-orders"
+          with:
+            userid: "tools.userid"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-invoices
+          description: "Retrieve WHMCS invoices, optionally filtered by client or payment status."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-invoices"
+          with:
+            userid: "tools.userid"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-invoice
+          description: "Retrieve a specific WHMCS invoice by its ID."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-invoice"
+          with:
+            invoiceid: "tools.invoiceid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-tickets
+          description: "Retrieve WHMCS support tickets, optionally filtered by client or status."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-tickets"
+          with:
+            clientid: "tools.clientid"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: open-ticket
+          description: "Open a new support ticket in WHMCS on behalf of a client."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "whmcs.open-ticket"
+          with:
+            deptid: "tools.deptid"
+            subject: "tools.subject"
+            message: "tools.message"
+            priority: "tools.priority"
+            clientid: "tools.clientid"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: check-domain-whois
+          description: "Perform a WHOIS lookup on a domain name to check availability and registration status."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.domain-whois"
+          with:
+            domain: "tools.domain"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-system-stats
+          description: "Retrieve WHMCS system statistics including revenue metrics, active clients, and ticket counts."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-stats"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: validate-client-login
+          description: "Validate a client's login credentials for authentication or SSO workflows."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "whmcs.validate-login"
+          with:
+            email: "tools.email"
+            password2: "tools.password2"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-client-sso-token
+          description: "Create an SSO token to enable a client to log into the WHMCS client area without a password."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "whmcs.create-sso-token"
+          with:
+            client_id: "tools.client_id"
+            sso_destination: "tools.sso_destination"
+          outputParameters:
+            - type: object
+              mapping: "$."

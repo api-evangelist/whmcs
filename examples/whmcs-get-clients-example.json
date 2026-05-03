@@ -1,0 +1,55 @@
+{
+  "operation": "GetClients",
+  "description": "Retrieve a paginated list of client accounts from WHMCS.",
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/includes/api.php",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "identifier": "your-api-identifier",
+      "secret": "your-api-secret",
+      "action": "GetClients",
+      "responsetype": "json",
+      "limitstart": 0,
+      "limitnum": 25,
+      "sorting": "ASC"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "result": "success",
+      "totalresults": 2,
+      "startnumber": 0,
+      "numreturned": 2,
+      "clients": {
+        "client": [
+          {
+            "id": 1,
+            "firstname": "John",
+            "lastname": "Doe",
+            "email": "john.doe@example.com",
+            "datecreated": "2024-01-15",
+            "groupid": 0,
+            "status": "Active",
+            "credit": 0.00,
+            "country": "US"
+          },
+          {
+            "id": 2,
+            "firstname": "Jane",
+            "lastname": "Smith",
+            "email": "jane.smith@example.com",
+            "datecreated": "2024-03-22",
+            "groupid": 0,
+            "status": "Active",
+            "credit": 25.00,
+            "country": "GB"
+          }
+        ]
+      }
+    }
+  }
+}

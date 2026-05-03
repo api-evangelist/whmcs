@@ -1,0 +1,112 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "whmcs": "https://www.whmcs.com/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "email": "schema:email",
+    "telephone": "schema:telephone",
+    "Organization": "schema:Organization",
+    "Person": "schema:Person",
+    "PostalAddress": "schema:PostalAddress",
+    "Invoice": "schema:Invoice",
+    "Order": "schema:Order",
+    "Product": "schema:Product",
+    "SoftwareApplication": "schema:SoftwareApplication",
+    "client": {
+      "@id": "whmcs:client",
+      "@type": "@id"
+    },
+    "clientId": {
+      "@id": "whmcs:clientId",
+      "@type": "xsd:integer"
+    },
+    "clientStatus": {
+      "@id": "whmcs:clientStatus",
+      "@type": "xsd:string"
+    },
+    "credit": {
+      "@id": "whmcs:credit",
+      "@type": "xsd:decimal"
+    },
+    "invoice": {
+      "@id": "whmcs:invoice",
+      "@type": "@id"
+    },
+    "invoiceId": {
+      "@id": "whmcs:invoiceId",
+      "@type": "xsd:integer"
+    },
+    "invoiceStatus": {
+      "@id": "whmcs:invoiceStatus",
+      "@type": "xsd:string"
+    },
+    "dueDate": {
+      "@id": "schema:paymentDueDate",
+      "@type": "xsd:date"
+    },
+    "datePaid": {
+      "@id": "whmcs:datePaid",
+      "@type": "xsd:date"
+    },
+    "total": {
+      "@id": "schema:totalPaymentDue",
+      "@type": "xsd:decimal"
+    },
+    "balance": {
+      "@id": "whmcs:balance",
+      "@type": "xsd:decimal"
+    },
+    "order": {
+      "@id": "whmcs:order",
+      "@type": "@id"
+    },
+    "orderId": {
+      "@id": "whmcs:orderId",
+      "@type": "xsd:integer"
+    },
+    "orderStatus": {
+      "@id": "whmcs:orderStatus",
+      "@type": "xsd:string"
+    },
+    "paymentMethod": {
+      "@id": "schema:paymentMethod",
+      "@type": "xsd:string"
+    },
+    "ticket": {
+      "@id": "whmcs:ticket",
+      "@type": "@id"
+    },
+    "ticketId": {
+      "@id": "whmcs:ticketId",
+      "@type": "xsd:integer"
+    },
+    "ticketStatus": {
+      "@id": "whmcs:ticketStatus",
+      "@type": "xsd:string"
+    },
+    "ticketPriority": {
+      "@id": "whmcs:ticketPriority",
+      "@type": "xsd:string"
+    },
+    "department": {
+      "@id": "whmcs:department",
+      "@type": "@id"
+    },
+    "domain": {
+      "@id": "schema:url",
+      "@type": "xsd:string"
+    },
+    "service": {
+      "@id": "whmcs:service",
+      "@type": "@id"
+    },
+    "product": {
+      "@id": "whmcs:product",
+      "@type": "@id"
+    }
+  }
+}

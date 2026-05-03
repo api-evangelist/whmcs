@@ -1,0 +1,27 @@
+{
+  "operation": "ValidateLogin",
+  "description": "Validate a client's login credentials for SSO or portal integration.",
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/includes/api.php",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "identifier": "your-api-identifier",
+      "secret": "your-api-secret",
+      "action": "ValidateLogin",
+      "responsetype": "json",
+      "email": "john.doe@example.com",
+      "password2": "clientpassword123"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "result": "success",
+      "userid": 1,
+      "passwordreset": false
+    }
+  }
+}

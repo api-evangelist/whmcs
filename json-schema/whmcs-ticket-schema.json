@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-schema/whmcs-ticket-schema.json",
+  "title": "WHMCS Support Ticket",
+  "description": "A WHMCS support ticket submitted by or on behalf of a client.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Internal ticket ID."
+    },
+    "tid": {
+      "type": "string",
+      "description": "Public-facing ticket identifier shown to clients."
+    },
+    "deptid": {
+      "type": "integer",
+      "description": "Department ID the ticket is assigned to."
+    },
+    "deptname": {
+      "type": "string",
+      "description": "Department name."
+    },
+    "userid": {
+      "type": "integer",
+      "description": "Client user ID associated with the ticket."
+    },
+    "name": {
+      "type": "string",
+      "description": "Contact name for the ticket."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Contact email address."
+    },
+    "subject": {
+      "type": "string",
+      "description": "Ticket subject."
+    },
+    "message": {
+      "type": "string",
+      "description": "Initial ticket message body."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Open", "Answered", "Customer-Reply", "Closed", "On Hold", "In Progress"],
+      "description": "Current ticket status."
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["Low", "Medium", "High"],
+      "description": "Ticket priority level."
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Ticket creation date and time."
+    },
+    "lastreply": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time of the most recent reply."
+    },
+    "flag": {
+      "type": "integer",
+      "description": "Admin flag status."
+    },
+    "service": {
+      "type": "string",
+      "description": "Service associated with the ticket."
+    },
+    "replies": {
+      "type": "array",
+      "description": "Thread of replies on the ticket.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userid": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "admin": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": ["id", "tid", "subject", "status", "priority"],
+  "additionalProperties": true
+}

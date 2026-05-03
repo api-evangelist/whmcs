@@ -1,0 +1,31 @@
+{
+  "operation": "OpenTicket",
+  "description": "Open a new support ticket in WHMCS.",
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/includes/api.php",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "identifier": "your-api-identifier",
+      "secret": "your-api-secret",
+      "action": "OpenTicket",
+      "responsetype": "json",
+      "deptid": 1,
+      "subject": "Cannot access cPanel",
+      "message": "I am unable to log into my cPanel account. The login page is showing a blank screen.",
+      "priority": "High",
+      "clientid": 1
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "result": "success",
+      "id": 15,
+      "tid": "894756",
+      "c": "abc123def456"
+    }
+  }
+}

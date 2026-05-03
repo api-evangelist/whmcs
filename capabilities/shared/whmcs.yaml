@@ -1,0 +1,579 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WHMCS API"
+  description: >-
+    WHMCS web hosting automation API providing client management, billing, order
+    processing, domain management, support tickets, and service provisioning.
+  tags:
+    - Web Hosting
+    - Billing Automation
+    - Client Management
+    - Domain Management
+    - Support
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WHMCS_API_IDENTIFIER: WHMCS_API_IDENTIFIER
+      WHMCS_API_SECRET: WHMCS_API_SECRET
+      WHMCS_BASE_URL: WHMCS_BASE_URL
+
+capability:
+  consumes:
+    - type: http
+      namespace: whmcs
+      baseUri: "{{env.WHMCS_BASE_URL}}/includes/api.php"
+      description: "WHMCS automation platform API for web hosting businesses."
+      authentication:
+        type: apikey
+        key: identifier
+        value: "{{env.WHMCS_API_IDENTIFIER}}"
+        placement: body
+      resources:
+        - name: clients
+          path: "?action=GetClients"
+          description: "Client account management operations."
+          operations:
+            - name: get-clients
+              method: POST
+              description: "Retrieve a list of client accounts."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: limitstart
+                  in: body
+                  type: integer
+                  required: false
+                  description: "Pagination start offset."
+                - name: limitnum
+                  in: body
+                  type: integer
+                  required: false
+                  description: "Number of records to return."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-client-details
+              method: POST
+              description: "Retrieve detailed information for a specific client."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: clientid
+                  in: body
+                  type: integer
+                  required: false
+                  description: "Client ID to retrieve."
+                - name: email
+                  in: body
+                  type: string
+                  required: false
+                  description: "Client email address."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: add-client
+              method: POST
+              description: "Add a new client account to WHMCS."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: form
+                data:
+                  firstname: "{{tools.firstname}}"
+                  lastname: "{{tools.lastname}}"
+                  email: "{{tools.email}}"
+                  address1: "{{tools.address1}}"
+                  city: "{{tools.city}}"
+                  country: "{{tools.country}}"
+                  postcode: "{{tools.postcode}}"
+                  phonenumber: "{{tools.phonenumber}}"
+                  password2: "{{tools.password2}}"
+
+        - name: orders
+          path: "?action=GetOrders"
+          description: "Order management operations."
+          operations:
+            - name: get-orders
+              method: POST
+              description: "Retrieve a list of orders."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: userid
+                  in: body
+                  type: integer
+                  required: false
+                  description: "Filter by client user ID."
+                - name: status
+                  in: body
+                  type: string
+                  required: false
+                  description: "Filter by order status."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: invoices
+          path: "?action=GetInvoices"
+          description: "Invoice and billing operations."
+          operations:
+            - name: get-invoices
+              method: POST
+              description: "Retrieve a list of invoices."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: userid
+                  in: body
+                  type: integer
+                  required: false
+                  description: "Filter by client user ID."
+                - name: status
+                  in: body
+                  type: string
+                  required: false
+                  description: "Filter by invoice status."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-invoice
+              method: POST
+              description: "Retrieve a specific invoice by ID."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: invoiceid
+                  in: body
+                  type: integer
+                  required: true
+                  description: "Invoice ID to retrieve."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: tickets
+          path: "?action=GetTickets"
+          description: "Support ticket operations."
+          operations:
+            - name: get-tickets
+              method: POST
+              description: "Retrieve a list of support tickets."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: clientid
+                  in: body
+                  type: integer
+                  required: false
+                  description: "Filter by client ID."
+                - name: status
+                  in: body
+                  type: string
+                  required: false
+                  description: "Filter by ticket status."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: open-ticket
+              method: POST
+              description: "Open a new support ticket."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: form
+                data:
+                  deptid: "{{tools.deptid}}"
+                  subject: "{{tools.subject}}"
+                  message: "{{tools.message}}"
+                  priority: "{{tools.priority}}"
+                  clientid: "{{tools.clientid}}"
+
+        - name: domains
+          path: "?action=DomainWhois"
+          description: "Domain registration and management operations."
+          operations:
+            - name: domain-whois
+              method: POST
+              description: "Perform a WHOIS lookup on a domain."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+                - name: domain
+                  in: body
+                  type: string
+                  required: true
+                  description: "Domain name to look up."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: system
+          path: "?action=GetStats"
+          description: "System administration and statistics."
+          operations:
+            - name: get-stats
+              method: POST
+              description: "Retrieve WHMCS system statistics and dashboard data."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: whmcs-details
+              method: POST
+              description: "Retrieve WHMCS installation version and configuration details."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: authentication
+          path: "?action=ValidateLogin"
+          description: "Authentication and SSO operations."
+          operations:
+            - name: validate-login
+              method: POST
+              description: "Validate a client's login credentials."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: form
+                data:
+                  email: "{{tools.email}}"
+                  password2: "{{tools.password2}}"
+            - name: create-sso-token
+              method: POST
+              description: "Create a single sign-on token for a client."
+              inputParameters:
+                - name: identifier
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential identifier."
+                - name: secret
+                  in: body
+                  type: string
+                  required: true
+                  description: "API credential secret."
+                - name: responsetype
+                  in: body
+                  type: string
+                  required: true
+                  description: "Response format (json)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: form
+                data:
+                  client_id: "{{tools.client_id}}"
+                  sso_destination: "{{tools.sso_destination}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: whmcs-rest
+      resources:
+        - path: /v1/clients
+          name: clients
+          description: "Client account management."
+          operations:
+            - method: GET
+              name: list-clients
+              description: "Retrieve a list of WHMCS clients."
+              call: "whmcs.get-clients"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/orders
+          name: orders
+          description: "Order management."
+          operations:
+            - method: GET
+              name: list-orders
+              description: "Retrieve a list of WHMCS orders."
+              call: "whmcs.get-orders"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/invoices
+          name: invoices
+          description: "Invoice management."
+          operations:
+            - method: GET
+              name: list-invoices
+              description: "Retrieve a list of WHMCS invoices."
+              call: "whmcs.get-invoices"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/tickets
+          name: tickets
+          description: "Support ticket management."
+          operations:
+            - method: GET
+              name: list-tickets
+              description: "Retrieve a list of support tickets."
+              call: "whmcs.get-tickets"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: whmcs-mcp
+      transport: http
+      tools:
+        - name: list-clients
+          description: "Retrieve a list of WHMCS client accounts."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-clients"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-client-details
+          description: "Retrieve detailed information for a specific WHMCS client."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-client-details"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-invoices
+          description: "Retrieve a list of WHMCS invoices with optional status filtering."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-invoices"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-tickets
+          description: "Retrieve a list of WHMCS support tickets."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-tickets"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-stats
+          description: "Retrieve WHMCS system statistics and dashboard metrics."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "whmcs.get-stats"
+          outputParameters:
+            - type: object
+              mapping: "$."

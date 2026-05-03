@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-schema/whmcs-invoice-schema.json",
+  "title": "WHMCS Invoice",
+  "description": "A WHMCS invoice for billing a client for hosting services.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique invoice identifier."
+    },
+    "invoicenum": {
+      "type": "string",
+      "description": "Human-readable invoice number."
+    },
+    "userid": {
+      "type": "integer",
+      "description": "Client user ID associated with this invoice."
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Invoice issue date."
+    },
+    "duedate": {
+      "type": "string",
+      "format": "date",
+      "description": "Invoice payment due date."
+    },
+    "datepaid": {
+      "type": "string",
+      "format": "date",
+      "description": "Date invoice was paid."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Unpaid", "Paid", "Cancelled", "Refunded", "Collections", "Draft"],
+      "description": "Current invoice status."
+    },
+    "paymentmethod": {
+      "type": "string",
+      "description": "Payment method module name."
+    },
+    "subtotal": {
+      "type": "number",
+      "format": "float",
+      "description": "Invoice subtotal before tax."
+    },
+    "tax": {
+      "type": "number",
+      "format": "float",
+      "description": "Tax amount applied."
+    },
+    "tax2": {
+      "type": "number",
+      "format": "float",
+      "description": "Secondary tax amount applied."
+    },
+    "credit": {
+      "type": "number",
+      "format": "float",
+      "description": "Credit applied to the invoice."
+    },
+    "total": {
+      "type": "number",
+      "format": "float",
+      "description": "Total invoice amount."
+    },
+    "balance": {
+      "type": "number",
+      "format": "float",
+      "description": "Remaining balance due."
+    },
+    "items": {
+      "type": "array",
+      "description": "Line items on the invoice.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Line item ID."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of line item (Hosting, Domain, etc.)."
+          },
+          "description": {
+            "type": "string",
+            "description": "Line item description."
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Line item amount."
+          },
+          "taxed": {
+            "type": "integer",
+            "enum": [0, 1],
+            "description": "Whether this item is taxed."
+          }
+        }
+      }
+    }
+  },
+  "required": ["id", "userid", "status", "total"],
+  "additionalProperties": true
+}

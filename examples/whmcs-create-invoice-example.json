@@ -1,0 +1,32 @@
+{
+  "operation": "CreateInvoice",
+  "description": "Create a new invoice for a client in WHMCS.",
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/includes/api.php",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "identifier": "your-api-identifier",
+      "secret": "your-api-secret",
+      "action": "CreateInvoice",
+      "responsetype": "json",
+      "userid": 1,
+      "status": "Unpaid",
+      "sendinvoice": true,
+      "paymentmethod": "paypal",
+      "duedate": "20260601",
+      "itemdescription[0]": "Monthly Hosting - May 2026",
+      "itemamount[0]": "9.99",
+      "itemtaxed[0]": 1
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "result": "success",
+      "invoiceid": 42
+    }
+  }
+}

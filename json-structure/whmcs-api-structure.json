@@ -1,0 +1,72 @@
+{
+  "title": "WHMCS API Structure",
+  "description": "Structural documentation for the WHMCS API request/response pattern.",
+  "version": "1.0.0",
+  "apiPattern": {
+    "type": "POST-based RPC",
+    "description": "All WHMCS API calls use POST requests with an ?action= query parameter identifying the command.",
+    "endpoint": "https://{your-domain}/includes/api.php",
+    "contentType": "application/x-www-form-urlencoded",
+    "responseFormat": "JSON or XML (controlled by responsetype parameter)"
+  },
+  "authenticationParameters": {
+    "identifier": {
+      "type": "string",
+      "required": true,
+      "description": "API credential identifier (generated in WHMCS admin)"
+    },
+    "secret": {
+      "type": "string",
+      "required": true,
+      "description": "API credential secret key"
+    },
+    "responsetype": {
+      "type": "string",
+      "required": true,
+      "enum": ["json", "xml"],
+      "default": "json",
+      "description": "Response format type"
+    },
+    "action": {
+      "type": "string",
+      "required": true,
+      "description": "The API command to execute (e.g., GetClients, AddOrder)"
+    }
+  },
+  "responseStructure": {
+    "result": {
+      "type": "string",
+      "values": ["success", "error"],
+      "description": "Indicates whether the operation succeeded or failed"
+    },
+    "message": {
+      "type": "string",
+      "description": "Error message when result is 'error'"
+    },
+    "totalresults": {
+      "type": "integer",
+      "description": "Total number of matching records (for list operations)"
+    },
+    "startnumber": {
+      "type": "integer",
+      "description": "Starting offset for paginated results"
+    },
+    "numreturned": {
+      "type": "integer",
+      "description": "Number of records returned in this response"
+    }
+  },
+  "commandCategories": {
+    "Clients": ["AddClient", "UpdateClient", "DeleteClient", "GetClients", "GetClientsDetails", "CloseClient", "CreateClientInvite"],
+    "Orders": ["AddOrder", "CancelOrder", "DeleteOrder", "GetOrders", "AcceptOrder", "PendingOrder", "FraudOrder", "GetProducts", "GetPromotions"],
+    "Billing": ["CreateInvoice", "UpdateInvoice", "GetInvoice", "GetInvoices", "AddInvoicePayment", "GenInvoices", "CreateQuote", "GetQuotes", "AddCredit", "GetCredits", "CapturePayment", "AddPayMethod", "GetPayMethods"],
+    "Domains": ["DomainRegister", "DomainRenew", "DomainTransfer", "DomainRelease", "DomainGetNameservers", "DomainUpdateNameservers", "DomainGetWhoisInfo", "DomainWhois", "GetTLDPricing"],
+    "Support": ["OpenTicket", "GetTicket", "GetTickets", "UpdateTicket", "DeleteTicket", "AddTicketReply", "GetSupportDepartments"],
+    "Services": ["ModuleCreate", "ModuleTerminate", "ModuleSuspend", "ModuleUnsuspend", "ModuleChangePackage", "UpdateClientProduct"],
+    "System": ["WhmcsDetails", "GetStats", "GetConfigurationValue", "SetConfigurationValue", "GetActivityLog", "SendEmail", "GetCurrencies"],
+    "Authentication": ["ValidateLogin", "CreateSsoToken", "CreateOAuthCredential", "ListOAuthCredentials"],
+    "Users": ["AddUser", "GetUsers", "UpdateUser", "GetPermissionsList", "UpdateUserPermissions"],
+    "Projects": ["CreateProject", "GetProject", "GetProjects", "UpdateProject", "AddProjectTask", "UpdateProjectTask"],
+    "Affiliates": ["AffiliateActivate", "GetAffiliates"]
+  }
+}

@@ -1,0 +1,112 @@
+extends: "spectral:oas"
+
+rules:
+  # WHMCS uses POST with ?action= query param for all operations
+  whmcs-path-must-include-action:
+    description: All WHMCS API paths must include an ?action= query parameter identifying the operation.
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^\\?action=[A-Za-z]+"
+
+  # Operation IDs must use camelCase
+  whmcs-operation-id-camel-case:
+    description: WHMCS operation IDs must use camelCase to match the API command naming convention.
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # All operations must use POST (WHMCS is POST-only)
+  whmcs-post-only:
+    description: All WHMCS API operations must use POST method. WHMCS does not support GET, PUT, or DELETE.
+    severity: error
+    given: "$.paths[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - post
+          not:
+            anyOf:
+              - required: [get]
+              - required: [put]
+              - required: [delete]
+              - required: [patch]
+
+  # All operations must have authentication credentials in request body
+  whmcs-auth-required:
+    description: All WHMCS API operations must reference the AuthCredentials schema for authentication.
+    severity: error
+    given: "$.paths[*].post.requestBody.content['application/x-www-form-urlencoded'].schema"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            allOf:
+              type: array
+
+  # Responses must use application/json
+  whmcs-response-json:
+    description: WHMCS API responses must support application/json content type.
+    severity: warn
+    given: "$.paths[*].post.responses[*].content"
+    then:
+      function: truthy
+
+  # Operations must have summaries
+  whmcs-operation-summary-required:
+    description: All WHMCS API operations must have a summary in Title Case.
+    severity: warn
+    given: "$.paths[*].post.summary"
+    then:
+      function: truthy
+
+  # All operations must be tagged
+  whmcs-operation-tags-required:
+    description: All WHMCS API operations must have at least one tag for categorization.
+    severity: warn
+    given: "$.paths[*].post.tags"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  # RequestBody must be form-urlencoded
+  whmcs-request-form-urlencoded:
+    description: WHMCS API request bodies must use application/x-www-form-urlencoded content type.
+    severity: error
+    given: "$.paths[*].post.requestBody.content"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - "application/x-www-form-urlencoded"
+
+  # All response schemas must include a 'result' field
+  whmcs-response-result-field:
+    description: All WHMCS API responses must include a 'result' field indicating success or error.
+    severity: warn
+    given: "$.components.schemas[*].properties"
+    then:
+      function: truthy
+
+  # API version must be documented
+  whmcs-info-version-required:
+    description: WHMCS API spec must include a version in the info object.
+    severity: error
+    given: "$.info.version"
+    then:
+      function: truthy

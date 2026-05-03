@@ -1,0 +1,1271 @@
+openapi: 3.0.3
+info:
+  title: WHMCS API
+  description: >-
+    The WHMCS API provides an interface to perform operations and actions within WHMCS
+    from external applications and scripts. It supports client management, billing,
+    orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+  - url: https://{your-domain}/includes/api.php
+    description: WHMCS API endpoint (self-hosted installation)
+    variables:
+      your-domain:
+        default: example.com
+        description: Your WHMCS installation domain
+
+security:
+  - ApiCredentials: []
+
+tags:
+  - name: Clients
+    description: Client account management operations
+  - name: Orders
+    description: Order and quote management operations
+  - name: Billing
+    description: Invoice, payment, and transaction management
+  - name: Domains
+    description: Domain registration and management
+  - name: Support
+    description: Ticket and announcement management
+  - name: Services
+    description: Hosting and service provisioning
+  - name: System
+    description: System administration and configuration
+  - name: Users
+    description: User account and permission management
+  - name: Authentication
+    description: OAuth and SSO authentication operations
+  - name: Projects
+    description: Project management operations
+  - name: Affiliates
+    description: Affiliate management operations
+
+paths:
+  /?action=GetClients:
+    post:
+      operationId: getClients
+      summary: Get Clients
+      description: Retrieve a list of clients from WHMCS.
+      tags:
+        - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    limitstart:
+                      type: integer
+                      description: Start offset for pagination.
+                      default: 0
+                    limitnum:
+                      type: integer
+                      description: Number of records to retrieve.
+                      default: 25
+                    sorting:
+                      type: string
+                      description: Sort direction (ASC or DESC).
+                      enum: [ASC, DESC]
+                    search:
+                      type: string
+                      description: Search term to filter clients.
+                    groupid:
+                      type: integer
+                      description: Filter clients by group ID.
+      responses:
+        '200':
+          description: List of clients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsListResponse'
+
+  /?action=GetClientsDetails:
+    post:
+      operationId: getClientsDetails
+      summary: Get Client Details
+      description: Retrieve detailed information for a specific client.
+      tags:
+        - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    clientid:
+                      type: integer
+                      description: The ID of the client to retrieve.
+                    email:
+                      type: string
+                      format: email
+                      description: The email address of the client (alternative to clientid).
+                    stats:
+                      type: boolean
+                      description: Whether to include client statistics.
+      responses:
+        '200':
+          description: Client details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDetailsResponse'
+
+  /?action=AddClient:
+    post:
+      operationId: addClient
+      summary: Add Client
+      description: Add a new client account to WHMCS.
+      tags:
+        - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - $ref: '#/components/schemas/ClientInput'
+      responses:
+        '200':
+          description: Client created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddClientResponse'
+
+  /?action=UpdateClient:
+    post:
+      operationId: updateClient
+      summary: Update Client
+      description: Update an existing client account in WHMCS.
+      tags:
+        - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - clientid
+                  properties:
+                    clientid:
+                      type: integer
+                      description: The ID of the client to update.
+                - $ref: '#/components/schemas/ClientInput'
+      responses:
+        '200':
+          description: Client updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  /?action=DeleteClient:
+    post:
+      operationId: deleteClient
+      summary: Delete Client
+      description: Delete a client account from WHMCS.
+      tags:
+        - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - clientid
+                  properties:
+                    clientid:
+                      type: integer
+                      description: The ID of the client to delete.
+                    deleteusers:
+                      type: boolean
+                      description: Whether to also delete associated user accounts.
+                    deletetransactions:
+                      type: boolean
+                      description: Whether to delete transactions.
+      responses:
+        '200':
+          description: Client deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  /?action=GetOrders:
+    post:
+      operationId: getOrders
+      summary: Get Orders
+      description: Retrieve a list of orders from WHMCS.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    limitstart:
+                      type: integer
+                      description: Start offset for pagination.
+                    limitnum:
+                      type: integer
+                      description: Number of records to return.
+                    id:
+                      type: integer
+                      description: Filter by order ID.
+                    userid:
+                      type: integer
+                      description: Filter by client user ID.
+                    requestor_id:
+                      type: integer
+                      description: Filter by requesting user ID.
+                    status:
+                      type: string
+                      description: Filter by order status.
+      responses:
+        '200':
+          description: List of orders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdersListResponse'
+
+  /?action=AddOrder:
+    post:
+      operationId: addOrder
+      summary: Add Order
+      description: Create a new order in WHMCS.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - clientid
+                    - paymentmethod
+                  properties:
+                    clientid:
+                      type: integer
+                      description: The client to create the order for.
+                    paymentmethod:
+                      type: string
+                      description: The payment method identifier.
+                    promocode:
+                      type: string
+                      description: A promo code to apply to the order.
+                    affid:
+                      type: integer
+                      description: Affiliate ID to associate with the order.
+                    noemail:
+                      type: boolean
+                      description: Set to true to suppress order emails.
+      responses:
+        '200':
+          description: Order created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOrderResponse'
+
+  /?action=GetInvoices:
+    post:
+      operationId: getInvoices
+      summary: Get Invoices
+      description: Retrieve a list of invoices from WHMCS.
+      tags:
+        - Billing
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    limitstart:
+                      type: integer
+                    limitnum:
+                      type: integer
+                    userid:
+                      type: integer
+                      description: Filter by client user ID.
+                    status:
+                      type: string
+                      description: Invoice status filter.
+                      enum: [Unpaid, Paid, Cancelled, Refunded, Collections, Draft]
+      responses:
+        '200':
+          description: List of invoices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicesListResponse'
+
+  /?action=GetInvoice:
+    post:
+      operationId: getInvoice
+      summary: Get Invoice
+      description: Retrieve a specific invoice from WHMCS.
+      tags:
+        - Billing
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - invoiceid
+                  properties:
+                    invoiceid:
+                      type: integer
+                      description: The ID of the invoice to retrieve.
+      responses:
+        '200':
+          description: Invoice details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceResponse'
+
+  /?action=CreateInvoice:
+    post:
+      operationId: createInvoice
+      summary: Create Invoice
+      description: Create a new invoice in WHMCS.
+      tags:
+        - Billing
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - userid
+                  properties:
+                    userid:
+                      type: integer
+                      description: The ID of the client to create the invoice for.
+                    status:
+                      type: string
+                      description: Invoice status.
+                      default: Unpaid
+                    sendinvoice:
+                      type: boolean
+                      description: Send invoice email to client.
+                    paymentmethod:
+                      type: string
+                      description: Payment method for the invoice.
+                    duedate:
+                      type: string
+                      format: date
+                      description: Invoice due date (YYYYMMDD).
+                    draft:
+                      type: boolean
+                      description: Create as draft invoice.
+      responses:
+        '200':
+          description: Invoice created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateInvoiceResponse'
+
+  /?action=GetTickets:
+    post:
+      operationId: getTickets
+      summary: Get Tickets
+      description: Retrieve a list of support tickets from WHMCS.
+      tags:
+        - Support
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    limitstart:
+                      type: integer
+                    limitnum:
+                      type: integer
+                    clientid:
+                      type: integer
+                      description: Filter by client ID.
+                    deptid:
+                      type: integer
+                      description: Filter by department ID.
+                    status:
+                      type: string
+                      description: Filter by ticket status.
+                    subject:
+                      type: string
+                      description: Search by ticket subject.
+      responses:
+        '200':
+          description: List of support tickets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketsListResponse'
+
+  /?action=OpenTicket:
+    post:
+      operationId: openTicket
+      summary: Open Ticket
+      description: Open a new support ticket in WHMCS.
+      tags:
+        - Support
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - deptid
+                    - subject
+                    - message
+                    - priority
+                  properties:
+                    deptid:
+                      type: integer
+                      description: Department ID to assign ticket to.
+                    subject:
+                      type: string
+                      description: Ticket subject.
+                    message:
+                      type: string
+                      description: Ticket message body.
+                    priority:
+                      type: string
+                      enum: [Low, Medium, High]
+                      description: Ticket priority.
+                    clientid:
+                      type: integer
+                      description: Client ID to associate with ticket.
+                    name:
+                      type: string
+                      description: Contact name for the ticket.
+                    email:
+                      type: string
+                      format: email
+                      description: Email address for the ticket.
+      responses:
+        '200':
+          description: Ticket opened.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenTicketResponse'
+
+  /?action=DomainRegister:
+    post:
+      operationId: domainRegister
+      summary: Domain Register
+      description: Register a new domain via WHMCS.
+      tags:
+        - Domains
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - domainid
+                  properties:
+                    domainid:
+                      type: integer
+                      description: The ID of the domain to register.
+      responses:
+        '200':
+          description: Domain registration initiated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  /?action=DomainWhois:
+    post:
+      operationId: domainWhois
+      summary: Domain WHOIS
+      description: Perform a WHOIS lookup on a domain.
+      tags:
+        - Domains
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - domain
+                  properties:
+                    domain:
+                      type: string
+                      description: The domain to perform the WHOIS lookup for.
+      responses:
+        '200':
+          description: WHOIS lookup results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainWhoisResponse'
+
+  /?action=GetProducts:
+    post:
+      operationId: getProducts
+      summary: Get Products
+      description: Retrieve a list of products and services available in WHMCS.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    pid:
+                      type: integer
+                      description: Specific product ID to retrieve.
+                    gid:
+                      type: integer
+                      description: Filter by product group ID.
+                    module:
+                      type: string
+                      description: Filter by server module name.
+      responses:
+        '200':
+          description: List of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsListResponse'
+
+  /?action=WhmcsDetails:
+    post:
+      operationId: whmcsDetails
+      summary: Get WHMCS Details
+      description: Retrieve WHMCS installation details including version and settings.
+      tags:
+        - System
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthCredentials'
+      responses:
+        '200':
+          description: WHMCS installation details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WhmcsDetailsResponse'
+
+  /?action=GetStats:
+    post:
+      operationId: getStats
+      summary: Get Stats
+      description: Retrieve WHMCS statistics dashboard data.
+      tags:
+        - System
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthCredentials'
+      responses:
+        '200':
+          description: System statistics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsResponse'
+
+  /?action=ValidateLogin:
+    post:
+      operationId: validateLogin
+      summary: Validate Login
+      description: Validate client login credentials against WHMCS.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  required:
+                    - email
+                    - password2
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      description: Client email address.
+                    password2:
+                      type: string
+                      description: Client account password.
+      responses:
+        '200':
+          description: Login validation result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateLoginResponse'
+
+  /?action=CreateSsoToken:
+    post:
+      operationId: createSsoToken
+      summary: Create SSO Token
+      description: Create a single sign-on token for a client or admin user.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AuthCredentials'
+                - type: object
+                  properties:
+                    client_id:
+                      type: integer
+                      description: Client ID to create SSO token for.
+                    admin_user:
+                      type: string
+                      description: Admin username to create SSO token for.
+                    sso_destination:
+                      type: string
+                      description: Destination URL after SSO redirect.
+      responses:
+        '200':
+          description: SSO token created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SsoTokenResponse'
+
+components:
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: >-
+        WHMCS API credentials. Provide identifier and secret parameters in the
+        POST request body, along with the action parameter.
+
+  schemas:
+    AuthCredentials:
+      type: object
+      required:
+        - identifier
+        - secret
+        - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum: [json, xml]
+          default: json
+          description: Response format type.
+
+    ClientInput:
+      type: object
+      properties:
+        firstname:
+          type: string
+          description: Client first name.
+        lastname:
+          type: string
+          description: Client last name.
+        email:
+          type: string
+          format: email
+          description: Client email address.
+        address1:
+          type: string
+          description: Client address line 1.
+        address2:
+          type: string
+          description: Client address line 2.
+        city:
+          type: string
+          description: Client city.
+        state:
+          type: string
+          description: Client state or region.
+        postcode:
+          type: string
+          description: Client postal or zip code.
+        country:
+          type: string
+          description: Client country (ISO 3166 2-letter code).
+        phonenumber:
+          type: string
+          description: Client phone number.
+        password2:
+          type: string
+          description: Client account password.
+        currency:
+          type: integer
+          description: Currency ID for the client.
+        groupid:
+          type: integer
+          description: Client group ID.
+        notes:
+          type: string
+          description: Internal notes about the client.
+        status:
+          type: string
+          enum: [Active, Inactive, Closed]
+          description: Client account status.
+        taxexempt:
+          type: boolean
+          description: Whether client is tax exempt.
+
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum: [success, error]
+          description: Operation result status.
+        message:
+          type: string
+          description: Descriptive result message.
+
+    ClientsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        clients:
+          type: object
+          properties:
+            client:
+              type: array
+              items:
+                $ref: '#/components/schemas/Client'
+
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Client ID.
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+        datecreated:
+          type: string
+          format: date
+        groupid:
+          type: integer
+        status:
+          type: string
+        credit:
+          type: number
+          format: float
+        country:
+          type: string
+
+    ClientDetailsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        client:
+          $ref: '#/components/schemas/ClientDetail'
+
+    ClientDetail:
+      allOf:
+        - $ref: '#/components/schemas/Client'
+        - type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postcode:
+              type: string
+            phonenumber:
+              type: string
+            notes:
+              type: string
+            taxexempt:
+              type: boolean
+            currencyprefix:
+              type: string
+            currencysuffix:
+              type: string
+
+    AddClientResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        clientid:
+          type: integer
+          description: ID of the newly created client.
+
+    OrdersListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        orders:
+          type: object
+          properties:
+            order:
+              type: array
+              items:
+                $ref: '#/components/schemas/Order'
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        ordernum:
+          type: string
+        userid:
+          type: integer
+        contactid:
+          type: integer
+        date:
+          type: string
+          format: date-time
+        currencyprefix:
+          type: string
+        currencysuffix:
+          type: string
+        amount:
+          type: number
+          format: float
+        status:
+          type: string
+        paymentmethod:
+          type: string
+        invoiceid:
+          type: integer
+        notes:
+          type: string
+
+    AddOrderResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        orderid:
+          type: integer
+          description: ID of the created order.
+        productids:
+          type: string
+        addonids:
+          type: string
+        domainids:
+          type: string
+        invoiceid:
+          type: integer
+
+    InvoicesListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        invoices:
+          type: object
+          properties:
+            invoice:
+              type: array
+              items:
+                $ref: '#/components/schemas/Invoice'
+
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+        userid:
+          type: integer
+        firstname:
+          type: string
+        lastname:
+          type: string
+        companyname:
+          type: string
+        invoicenum:
+          type: string
+        date:
+          type: string
+          format: date
+        duedate:
+          type: string
+          format: date
+        datepaid:
+          type: string
+          format: date
+        subtotal:
+          type: number
+          format: float
+        credit:
+          type: number
+          format: float
+        tax:
+          type: number
+          format: float
+        tax2:
+          type: number
+          format: float
+        total:
+          type: number
+          format: float
+        balance:
+          type: number
+          format: float
+        status:
+          type: string
+          enum: [Unpaid, Paid, Cancelled, Refunded, Collections, Draft]
+        paymentmethod:
+          type: string
+
+    InvoiceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        invoiceid:
+          type: integer
+        userid:
+          type: integer
+        date:
+          type: string
+          format: date
+        duedate:
+          type: string
+          format: date
+        total:
+          type: number
+          format: float
+        status:
+          type: string
+        items:
+          type: object
+          properties:
+            item:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    type: string
+                  description:
+                    type: string
+                  amount:
+                    type: number
+                    format: float
+                  taxed:
+                    type: integer
+
+    CreateInvoiceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        invoiceid:
+          type: integer
+          description: ID of the created invoice.
+
+    TicketsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        tickets:
+          type: object
+          properties:
+            ticket:
+              type: array
+              items:
+                $ref: '#/components/schemas/Ticket'
+
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        deptid:
+          type: integer
+        deptname:
+          type: string
+        userid:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        subject:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+          enum: [Low, Medium, High]
+        date:
+          type: string
+          format: date-time
+        lastreply:
+          type: string
+          format: date-time
+        flag:
+          type: integer
+        service:
+          type: string
+
+    OpenTicketResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        id:
+          type: integer
+          description: Internal ticket ID.
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        c:
+          type: string
+          description: Ticket code for client access.
+
+    ProductsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        products:
+          type: object
+          properties:
+            product:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+
+    Product:
+      type: object
+      properties:
+        pid:
+          type: integer
+        gid:
+          type: integer
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        module:
+          type: string
+        paytype:
+          type: string
+        pricing:
+          type: object
+
+    DomainWhoisResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        domain:
+          type: string
+        status:
+          type: string
+          description: Registration status of the domain.
+
+    WhmcsDetailsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        whmcsversion:
+          type: string
+        phpversion:
+          type: string
+        mysqlversion:
+          type: string
+        systemurl:
+          type: string
+        templatedir:
+          type: string
+        activeclients:
+          type: integer
+        activedomains:
+          type: integer
+        activeservices:
+          type: integer
+
+    StatsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        income_today:
+          type: number
+          format: float
+        income_thismonth:
+          type: number
+          format: float
+        income_thisyear:
+          type: number
+          format: float
+        income_alltime:
+          type: number
+          format: float
+        orders_pending:
+          type: integer
+        orders_today_cancelled:
+          type: integer
+        orders_today_fraud:
+          type: integer
+        orders_today_active:
+          type: integer
+        tickets_open:
+          type: integer
+        tickets_answered:
+          type: integer
+        tickets_awaiting_reply:
+          type: integer
+        tickets_in_progress:
+          type: integer
+        clients_active:
+          type: integer
+        clients_inactive:
+          type: integer
+        clients_closed:
+          type: integer
+
+    ValidateLoginResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        userid:
+          type: integer
+          description: Client user ID if login is valid.
+        passwordreset:
+          type: boolean
+          description: Whether client must reset password.
+
+    SsoTokenResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        access_token:
+          type: string
+          description: SSO access token.
+        redirect_url:
+          type: string
+          description: URL to redirect client to for SSO login.
+        expires_at:
+          type: string
+          format: date-time
+          description: Token expiration time.
