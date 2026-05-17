@@ -113,7 +113,7 @@ common:
     url: https://developers.whmcs.com/api-reference/
   - type: Blog
     url: https://blog.whmcs.com/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/WHMCS
   - type: Marketplace
     url: https://marketplace.whmcs.com/
