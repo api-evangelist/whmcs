@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WHMCS API — Support
+  description: 'WHMCS API — Support. 2 operations. Lead operation: Get Tickets. Self-contained Naftiko capability covering
+    one Whmcs business surface.'
+  tags:
+  - Whmcs
+  - Support
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHMCS_API_KEY: WHMCS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: whmcs-support
+    baseUri: https://{your-domain}/includes/api.php
+    description: WHMCS API — Support business capability. Self-contained, no shared references.
+    resources:
+    - name: ?action=GetTickets
+      path: /?action=GetTickets
+      operations:
+      - name: gettickets
+        method: POST
+        description: Get Tickets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ?action=OpenTicket
+      path: /?action=OpenTicket
+      operations:
+      - name: openticket
+        method: POST
+        description: Open Ticket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: identifier
+      value: '{{env.WHMCS_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: whmcs-support-rest
+    port: 8080
+    description: REST adapter for WHMCS API — Support. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/action-gettickets
+      name: action-gettickets
+      description: REST surface for ?action=GetTickets.
+      operations:
+      - method: POST
+        name: gettickets
+        description: Get Tickets
+        call: whmcs-support.gettickets
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-openticket
+      name: action-openticket
+      description: REST surface for ?action=OpenTicket.
+      operations:
+      - method: POST
+        name: openticket
+        description: Open Ticket
+        call: whmcs-support.openticket
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: whmcs-support-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WHMCS API — Support. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-tickets
+      description: Get Tickets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: whmcs-support.gettickets
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: open-ticket
+      description: Open Ticket
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: whmcs-support.openticket
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

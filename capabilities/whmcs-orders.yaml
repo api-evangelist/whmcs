@@ -1,0 +1,166 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WHMCS API — Orders
+  description: 'WHMCS API — Orders. 3 operations. Lead operation: Add Order. Self-contained Naftiko capability covering one
+    Whmcs business surface.'
+  tags:
+  - Whmcs
+  - Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHMCS_API_KEY: WHMCS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: whmcs-orders
+    baseUri: https://{your-domain}/includes/api.php
+    description: WHMCS API — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: ?action=AddOrder
+      path: /?action=AddOrder
+      operations:
+      - name: addorder
+        method: POST
+        description: Add Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ?action=GetOrders
+      path: /?action=GetOrders
+      operations:
+      - name: getorders
+        method: POST
+        description: Get Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ?action=GetProducts
+      path: /?action=GetProducts
+      operations:
+      - name: getproducts
+        method: POST
+        description: Get Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: identifier
+      value: '{{env.WHMCS_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: whmcs-orders-rest
+    port: 8080
+    description: REST adapter for WHMCS API — Orders. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/action-addorder
+      name: action-addorder
+      description: REST surface for ?action=AddOrder.
+      operations:
+      - method: POST
+        name: addorder
+        description: Add Order
+        call: whmcs-orders.addorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-getorders
+      name: action-getorders
+      description: REST surface for ?action=GetOrders.
+      operations:
+      - method: POST
+        name: getorders
+        description: Get Orders
+        call: whmcs-orders.getorders
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-getproducts
+      name: action-getproducts
+      description: REST surface for ?action=GetProducts.
+      operations:
+      - method: POST
+        name: getproducts
+        description: Get Products
+        call: whmcs-orders.getproducts
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: whmcs-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WHMCS API — Orders. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: add-order
+      description: Add Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: whmcs-orders.addorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-orders
+      description: Get Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: whmcs-orders.getorders
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-products
+      description: Get Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: whmcs-orders.getproducts
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
