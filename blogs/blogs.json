@@ -2,13 +2,13 @@
   "repo": "whmcs",
   "feeds": [
     {
-      "source": "https://blog.whmcs.com/",
-      "feed_url": "",
+      "source": "https://developers.whmcs.com/api-reference/",
+      "feed_url": "https://developers.whmcs.com/api-reference/index.xml",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "discovered"
     }
   ],
-  "fetched": "2026-05-17T20:48:52Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }
