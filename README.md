@@ -1,93 +1,81 @@
-# WHMCS
+# WHMCS (whmcs)
 
-WHMCS (Web Host Manager Complete Solution) is a leading web hosting automation platform providing billing, client management, support, domain management, and provisioning automation for web hosting businesses. It offers a comprehensive API with 150+ commands.
+WHMCS (Web Host Manager Complete Solution) is a leading web hosting automation platform that provides billing, client management, support, domain management, and provisioning automation for web hosting businesses. It offers a comprehensive API with 150+ commands covering clients, orders, invoicing, domains, support tickets, and system administration.
 
-**Website:** [https://www.whmcs.com/](https://www.whmcs.com/)
-**Developer Documentation:** [https://developers.whmcs.com/](https://developers.whmcs.com/)
-**API Reference:** [https://developers.whmcs.com/api-reference/](https://developers.whmcs.com/api-reference/)
-**GitHub:** [https://github.com/WHMCS](https://github.com/WHMCS)
-**Marketplace:** [https://marketplace.whmcs.com/](https://marketplace.whmcs.com/)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/whmcs/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/whmcs/refs/heads/main/apis.yml)
 
-## API Overview
+## Scope
 
-The WHMCS API accepts HTTP POST requests to `/includes/api.php` with an `?action=` query parameter identifying the command. All requests require API credentials passed in the request body.
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
 
-**Authentication:** API Identifier + Secret key pairs (generated in WHMCS admin)
-**Request Format:** `application/x-www-form-urlencoded`
-**Response Format:** JSON or XML
+## Tags
 
-## API Categories
+- Web Hosting
+- Billing Automation
+- Client Management
+- Domain Management
+- Support Tickets
+- Provisioning
 
-| Category | Commands | Description |
-|----------|----------|-------------|
-| Clients | 10+ | Client account management |
-| Orders | 10+ | Order and quote processing |
-| Billing | 25+ | Invoices, payments, transactions |
-| Domains | 17+ | Domain registration and management |
-| Support | 19+ | Ticket and announcement management |
-| Services | 12+ | Service provisioning and modules |
-| System | 20+ | Administration and configuration |
-| Authentication | 7+ | OAuth and SSO token management |
-| Users | 8+ | User accounts and permissions |
-| Projects | 10+ | Project task management |
-| Affiliates | 2+ | Affiliate program management |
-| Modules | 5+ | Module configuration |
+## Timestamps
 
-## Artifacts
+- **Created:** 2025-02-09
+- **Modified:** 2026-05-19
 
-### OpenAPI
+## APIs
 
-| Spec | Description |
-|------|-------------|
-| [whmcs-openapi.yml](openapi/whmcs-openapi.yml) | OpenAPI 3.0 specification for the WHMCS API |
+### WHMCS API
 
-### JSON Schema
+The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports 150+ commands for client management, order processing, billing, invoice management, domain registration and management, support ticket handling, service provisioning, OAuth/SSO authentication, and system administration.
 
-| Schema | Description |
-|--------|-------------|
-| [whmcs-client-schema.json](json-schema/whmcs-client-schema.json) | Schema for WHMCS client accounts |
-| [whmcs-invoice-schema.json](json-schema/whmcs-invoice-schema.json) | Schema for WHMCS invoices |
-| [whmcs-ticket-schema.json](json-schema/whmcs-ticket-schema.json) | Schema for WHMCS support tickets |
+- **Human URL:** [https://developers.whmcs.com/](https://developers.whmcs.com/)
+- **Base URL:** `https://{your-domain}/includes/api.php`
 
-### JSON Structure
+#### Tags
 
-| Structure | Description |
-|-----------|-------------|
-| [whmcs-api-structure.json](json-structure/whmcs-api-structure.json) | WHMCS API request/response structural documentation |
+- Web Hosting
+- Billing Automation
+- Client Management
+- Domain Management
+- Support Tickets
+- Provisioning
+- Automation
 
-### JSON-LD
+#### Properties
 
-| Context | Description |
-|---------|-------------|
-| [whmcs-context.jsonld](json-ld/whmcs-context.jsonld) | JSON-LD context mapping WHMCS entities to schema.org |
+- [Documentation](https://developers.whmcs.com/api/)
+- [API Reference](https://developers.whmcs.com/api-reference/)
+- [A P I Index](https://developers.whmcs.com/api/api-index/)
+- [Getting Started](https://developers.whmcs.com/api/getting-started/)
+- [Authentication](https://developers.whmcs.com/api/authentication/)
+- [Sample Code](https://developers.whmcs.com/api/sample-code/)
+- [Git Hub](https://github.com/WHMCS)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/whmcs/main/openapi/whmcs-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-schema/whmcs-client-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-schema/whmcs-invoice-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-schema/whmcs-ticket-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-structure/whmcs-api-structure.json)
+- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/whmcs/main/json-ld/whmcs-context.jsonld)
+- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/whmcs/main/rules/whmcs-rules.yml)
+- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/whmcs/main/vocabulary/whmcs-vocabulary.yml)
+- [Postman Collection](collections/whmcs.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/whmcs.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-### Spectral Rules
+## Common Properties
 
-| Rules | Description |
-|-------|-------------|
-| [whmcs-rules.yml](rules/whmcs-rules.yml) | Spectral ruleset enforcing WHMCS API conventions |
+- [LinkedIn](https://www.linkedin.com/company/whmcs-ltd)
+- [Website](https://www.whmcs.com/)
+- [Documentation](https://developers.whmcs.com/)
+- [API Reference](https://developers.whmcs.com/api-reference/)
+- [Blog](https://blog.whmcs.com/)
+- [GitHub Organization](https://github.com/WHMCS)
+- [Marketplace](https://marketplace.whmcs.com/)
+- [Forum](https://whmcs.community/)
+- [Status Page](https://whmcsstatus.com/)
 
-### Naftiko Capabilities
+## Maintainers
 
-| Capability | Description |
-|------------|-------------|
-| [shared/whmcs.yaml](capabilities/shared/whmcs.yaml) | Per-API consumed definition for WHMCS |
-| [hosting-automation.yaml](capabilities/hosting-automation.yaml) | Unified workflow for hosting business automation (12 MCP tools) |
-
-### Examples
-
-| Example | Description |
-|---------|-------------|
-| [whmcs-get-clients-example.json](examples/whmcs-get-clients-example.json) | GetClients request/response example |
-| [whmcs-create-invoice-example.json](examples/whmcs-create-invoice-example.json) | CreateInvoice request/response example |
-| [whmcs-open-ticket-example.json](examples/whmcs-open-ticket-example.json) | OpenTicket request/response example |
-| [whmcs-validate-login-example.json](examples/whmcs-validate-login-example.json) | ValidateLogin request/response example |
-
-### Vocabulary
-
-| Vocabulary | Description |
-|------------|-------------|
-| [whmcs-vocabulary.yml](vocabulary/whmcs-vocabulary.yml) | WHMCS domain vocabulary and complete API command catalog |
-
----
-*Profile generated by [API Evangelist](https://apievangelist.com)*
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
