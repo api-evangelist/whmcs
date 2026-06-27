@@ -116,7 +116,7 @@ common:
     url: https://github.com/WHMCS
   - type: Marketplace
     url: https://marketplace.whmcs.com/
-  - type: Forum
+  - type: Forums
     url: https://whmcs.community/
   - type: StatusPage
     url: https://whmcsstatus.com/
