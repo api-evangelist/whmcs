@@ -102,6 +102,12 @@ apis:
       - Authorize.Net payment gateway
       - WHMCS Marketplace modules
 common:
+  - type: VulnerabilityDisclosure
+    url: security/whmcs-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/whmcs-domain-security.yml
+  - type: Authentication
+    url: authentication/whmcs-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/whmcs-ltd
   - type: Website

@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/whmcs-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: ApiCredentials
+  type: apiKey
+  in: query
+  parameter: identifier
+  description: WHMCS API credentials. Provide identifier and secret parameters in the POST request
+    body, along with the action parameter.
+  sources:
+  - openapi/whmcs-openapi.yml
