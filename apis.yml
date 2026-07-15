@@ -102,6 +102,8 @@ apis:
       - Authorize.Net payment gateway
       - WHMCS Marketplace modules
 common:
+  - type: AgenticAccess
+    url: agentic-access/whmcs-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/whmcs-vulnerability-disclosure.yml
   - type: DomainSecurity
