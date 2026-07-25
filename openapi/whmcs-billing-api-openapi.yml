@@ -1,0 +1,283 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication Billing API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: Billing
+  description: Invoice, payment, and transaction management
+paths:
+  /?action=GetInvoices:
+    post:
+      operationId: getInvoices
+      summary: Get Invoices
+      description: Retrieve a list of invoices from WHMCS.
+      tags:
+      - Billing
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  limitstart:
+                    type: integer
+                  limitnum:
+                    type: integer
+                  userid:
+                    type: integer
+                    description: Filter by client user ID.
+                  status:
+                    type: string
+                    description: Invoice status filter.
+                    enum:
+                    - Unpaid
+                    - Paid
+                    - Cancelled
+                    - Refunded
+                    - Collections
+                    - Draft
+      responses:
+        '200':
+          description: List of invoices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicesListResponse'
+  /?action=GetInvoice:
+    post:
+      operationId: getInvoice
+      summary: Get Invoice
+      description: Retrieve a specific invoice from WHMCS.
+      tags:
+      - Billing
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - invoiceid
+                properties:
+                  invoiceid:
+                    type: integer
+                    description: The ID of the invoice to retrieve.
+      responses:
+        '200':
+          description: Invoice details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceResponse'
+  /?action=CreateInvoice:
+    post:
+      operationId: createInvoice
+      summary: Create Invoice
+      description: Create a new invoice in WHMCS.
+      tags:
+      - Billing
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - userid
+                properties:
+                  userid:
+                    type: integer
+                    description: The ID of the client to create the invoice for.
+                  status:
+                    type: string
+                    description: Invoice status.
+                    default: Unpaid
+                  sendinvoice:
+                    type: boolean
+                    description: Send invoice email to client.
+                  paymentmethod:
+                    type: string
+                    description: Payment method for the invoice.
+                  duedate:
+                    type: string
+                    format: date
+                    description: Invoice due date (YYYYMMDD).
+                  draft:
+                    type: boolean
+                    description: Create as draft invoice.
+      responses:
+        '200':
+          description: Invoice created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateInvoiceResponse'
+components:
+  schemas:
+    InvoicesListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        invoices:
+          type: object
+          properties:
+            invoice:
+              type: array
+              items:
+                $ref: '#/components/schemas/Invoice'
+    CreateInvoiceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        invoiceid:
+          type: integer
+          description: ID of the created invoice.
+    InvoiceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        invoiceid:
+          type: integer
+        userid:
+          type: integer
+        date:
+          type: string
+          format: date
+        duedate:
+          type: string
+          format: date
+        total:
+          type: number
+          format: float
+        status:
+          type: string
+        items:
+          type: object
+          properties:
+            item:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    type: string
+                  description:
+                    type: string
+                  amount:
+                    type: number
+                    format: float
+                  taxed:
+                    type: integer
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+        userid:
+          type: integer
+        firstname:
+          type: string
+        lastname:
+          type: string
+        companyname:
+          type: string
+        invoicenum:
+          type: string
+        date:
+          type: string
+          format: date
+        duedate:
+          type: string
+          format: date
+        datepaid:
+          type: string
+          format: date
+        subtotal:
+          type: number
+          format: float
+        credit:
+          type: number
+          format: float
+        tax:
+          type: number
+          format: float
+        tax2:
+          type: number
+          format: float
+        total:
+          type: number
+          format: float
+        balance:
+          type: number
+          format: float
+        status:
+          type: string
+          enum:
+          - Unpaid
+          - Paid
+          - Cancelled
+          - Refunded
+          - Collections
+          - Draft
+        paymentmethod:
+          type: string
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.

@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication System API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: System
+  description: System administration and configuration
+paths:
+  /?action=WhmcsDetails:
+    post:
+      operationId: whmcsDetails
+      summary: Get WHMCS Details
+      description: Retrieve WHMCS installation details including version and settings.
+      tags:
+      - System
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthCredentials'
+      responses:
+        '200':
+          description: WHMCS installation details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WhmcsDetailsResponse'
+  /?action=GetStats:
+    post:
+      operationId: getStats
+      summary: Get Stats
+      description: Retrieve WHMCS statistics dashboard data.
+      tags:
+      - System
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthCredentials'
+      responses:
+        '200':
+          description: System statistics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsResponse'
+components:
+  schemas:
+    WhmcsDetailsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        whmcsversion:
+          type: string
+        phpversion:
+          type: string
+        mysqlversion:
+          type: string
+        systemurl:
+          type: string
+        templatedir:
+          type: string
+        activeclients:
+          type: integer
+        activedomains:
+          type: integer
+        activeservices:
+          type: integer
+    StatsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        income_today:
+          type: number
+          format: float
+        income_thismonth:
+          type: number
+          format: float
+        income_thisyear:
+          type: number
+          format: float
+        income_alltime:
+          type: number
+          format: float
+        orders_pending:
+          type: integer
+        orders_today_cancelled:
+          type: integer
+        orders_today_fraud:
+          type: integer
+        orders_today_active:
+          type: integer
+        tickets_open:
+          type: integer
+        tickets_answered:
+          type: integer
+        tickets_awaiting_reply:
+          type: integer
+        tickets_in_progress:
+          type: integer
+        clients_active:
+          type: integer
+        clients_inactive:
+          type: integer
+        clients_closed:
+          type: integer
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.

@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication Domains API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: Domains
+  description: Domain registration and management
+paths:
+  /?action=DomainRegister:
+    post:
+      operationId: domainRegister
+      summary: Domain Register
+      description: Register a new domain via WHMCS.
+      tags:
+      - Domains
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - domainid
+                properties:
+                  domainid:
+                    type: integer
+                    description: The ID of the domain to register.
+      responses:
+        '200':
+          description: Domain registration initiated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /?action=DomainWhois:
+    post:
+      operationId: domainWhois
+      summary: Domain WHOIS
+      description: Perform a WHOIS lookup on a domain.
+      tags:
+      - Domains
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - domain
+                properties:
+                  domain:
+                    type: string
+                    description: The domain to perform the WHOIS lookup for.
+      responses:
+        '200':
+          description: WHOIS lookup results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainWhoisResponse'
+components:
+  schemas:
+    DomainWhoisResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        domain:
+          type: string
+        status:
+          type: string
+          description: Registration status of the domain.
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - success
+          - error
+          description: Operation result status.
+        message:
+          type: string
+          description: Descriptive result message.
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.

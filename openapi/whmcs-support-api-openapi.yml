@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication Support API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: Support
+  description: Ticket and announcement management
+paths:
+  /?action=GetTickets:
+    post:
+      operationId: getTickets
+      summary: Get Tickets
+      description: Retrieve a list of support tickets from WHMCS.
+      tags:
+      - Support
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  limitstart:
+                    type: integer
+                  limitnum:
+                    type: integer
+                  clientid:
+                    type: integer
+                    description: Filter by client ID.
+                  deptid:
+                    type: integer
+                    description: Filter by department ID.
+                  status:
+                    type: string
+                    description: Filter by ticket status.
+                  subject:
+                    type: string
+                    description: Search by ticket subject.
+      responses:
+        '200':
+          description: List of support tickets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketsListResponse'
+  /?action=OpenTicket:
+    post:
+      operationId: openTicket
+      summary: Open Ticket
+      description: Open a new support ticket in WHMCS.
+      tags:
+      - Support
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - deptid
+                - subject
+                - message
+                - priority
+                properties:
+                  deptid:
+                    type: integer
+                    description: Department ID to assign ticket to.
+                  subject:
+                    type: string
+                    description: Ticket subject.
+                  message:
+                    type: string
+                    description: Ticket message body.
+                  priority:
+                    type: string
+                    enum:
+                    - Low
+                    - Medium
+                    - High
+                    description: Ticket priority.
+                  clientid:
+                    type: integer
+                    description: Client ID to associate with ticket.
+                  name:
+                    type: string
+                    description: Contact name for the ticket.
+                  email:
+                    type: string
+                    format: email
+                    description: Email address for the ticket.
+      responses:
+        '200':
+          description: Ticket opened.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenTicketResponse'
+components:
+  schemas:
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        deptid:
+          type: integer
+        deptname:
+          type: string
+        userid:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        subject:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+          enum:
+          - Low
+          - Medium
+          - High
+        date:
+          type: string
+          format: date-time
+        lastreply:
+          type: string
+          format: date-time
+        flag:
+          type: integer
+        service:
+          type: string
+    TicketsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        tickets:
+          type: object
+          properties:
+            ticket:
+              type: array
+              items:
+                $ref: '#/components/schemas/Ticket'
+    OpenTicketResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        id:
+          type: integer
+          description: Internal ticket ID.
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        c:
+          type: string
+          description: Ticket code for client access.
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.

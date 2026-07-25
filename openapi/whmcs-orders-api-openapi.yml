@@ -1,0 +1,262 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication Orders API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: Orders
+  description: Order and quote management operations
+paths:
+  /?action=GetOrders:
+    post:
+      operationId: getOrders
+      summary: Get Orders
+      description: Retrieve a list of orders from WHMCS.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  limitstart:
+                    type: integer
+                    description: Start offset for pagination.
+                  limitnum:
+                    type: integer
+                    description: Number of records to return.
+                  id:
+                    type: integer
+                    description: Filter by order ID.
+                  userid:
+                    type: integer
+                    description: Filter by client user ID.
+                  requestor_id:
+                    type: integer
+                    description: Filter by requesting user ID.
+                  status:
+                    type: string
+                    description: Filter by order status.
+      responses:
+        '200':
+          description: List of orders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdersListResponse'
+  /?action=AddOrder:
+    post:
+      operationId: addOrder
+      summary: Add Order
+      description: Create a new order in WHMCS.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - clientid
+                - paymentmethod
+                properties:
+                  clientid:
+                    type: integer
+                    description: The client to create the order for.
+                  paymentmethod:
+                    type: string
+                    description: The payment method identifier.
+                  promocode:
+                    type: string
+                    description: A promo code to apply to the order.
+                  affid:
+                    type: integer
+                    description: Affiliate ID to associate with the order.
+                  noemail:
+                    type: boolean
+                    description: Set to true to suppress order emails.
+      responses:
+        '200':
+          description: Order created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddOrderResponse'
+  /?action=GetProducts:
+    post:
+      operationId: getProducts
+      summary: Get Products
+      description: Retrieve a list of products and services available in WHMCS.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  pid:
+                    type: integer
+                    description: Specific product ID to retrieve.
+                  gid:
+                    type: integer
+                    description: Filter by product group ID.
+                  module:
+                    type: string
+                    description: Filter by server module name.
+      responses:
+        '200':
+          description: List of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsListResponse'
+components:
+  schemas:
+    ProductsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        products:
+          type: object
+          properties:
+            product:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        ordernum:
+          type: string
+        userid:
+          type: integer
+        contactid:
+          type: integer
+        date:
+          type: string
+          format: date-time
+        currencyprefix:
+          type: string
+        currencysuffix:
+          type: string
+        amount:
+          type: number
+          format: float
+        status:
+          type: string
+        paymentmethod:
+          type: string
+        invoiceid:
+          type: integer
+        notes:
+          type: string
+    AddOrderResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        orderid:
+          type: integer
+          description: ID of the created order.
+        productids:
+          type: string
+        addonids:
+          type: string
+        domainids:
+          type: string
+        invoiceid:
+          type: integer
+    Product:
+      type: object
+      properties:
+        pid:
+          type: integer
+        gid:
+          type: integer
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        module:
+          type: string
+        paytype:
+          type: string
+        pricing:
+          type: object
+    OrdersListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        orders:
+          type: object
+          properties:
+            order:
+              type: array
+              items:
+                $ref: '#/components/schemas/Order'
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.

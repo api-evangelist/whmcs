@@ -1,0 +1,364 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication Clients API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: Clients
+  description: Client account management operations
+paths:
+  /?action=GetClients:
+    post:
+      operationId: getClients
+      summary: Get Clients
+      description: Retrieve a list of clients from WHMCS.
+      tags:
+      - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  limitstart:
+                    type: integer
+                    description: Start offset for pagination.
+                    default: 0
+                  limitnum:
+                    type: integer
+                    description: Number of records to retrieve.
+                    default: 25
+                  sorting:
+                    type: string
+                    description: Sort direction (ASC or DESC).
+                    enum:
+                    - ASC
+                    - DESC
+                  search:
+                    type: string
+                    description: Search term to filter clients.
+                  groupid:
+                    type: integer
+                    description: Filter clients by group ID.
+      responses:
+        '200':
+          description: List of clients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsListResponse'
+  /?action=GetClientsDetails:
+    post:
+      operationId: getClientsDetails
+      summary: Get Client Details
+      description: Retrieve detailed information for a specific client.
+      tags:
+      - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  clientid:
+                    type: integer
+                    description: The ID of the client to retrieve.
+                  email:
+                    type: string
+                    format: email
+                    description: The email address of the client (alternative to clientid).
+                  stats:
+                    type: boolean
+                    description: Whether to include client statistics.
+      responses:
+        '200':
+          description: Client details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientDetailsResponse'
+  /?action=AddClient:
+    post:
+      operationId: addClient
+      summary: Add Client
+      description: Add a new client account to WHMCS.
+      tags:
+      - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - $ref: '#/components/schemas/ClientInput'
+      responses:
+        '200':
+          description: Client created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddClientResponse'
+  /?action=UpdateClient:
+    post:
+      operationId: updateClient
+      summary: Update Client
+      description: Update an existing client account in WHMCS.
+      tags:
+      - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - clientid
+                properties:
+                  clientid:
+                    type: integer
+                    description: The ID of the client to update.
+              - $ref: '#/components/schemas/ClientInput'
+      responses:
+        '200':
+          description: Client updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /?action=DeleteClient:
+    post:
+      operationId: deleteClient
+      summary: Delete Client
+      description: Delete a client account from WHMCS.
+      tags:
+      - Clients
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - clientid
+                properties:
+                  clientid:
+                    type: integer
+                    description: The ID of the client to delete.
+                  deleteusers:
+                    type: boolean
+                    description: Whether to also delete associated user accounts.
+                  deletetransactions:
+                    type: boolean
+                    description: Whether to delete transactions.
+      responses:
+        '200':
+          description: Client deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Client ID.
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+        datecreated:
+          type: string
+          format: date
+        groupid:
+          type: integer
+        status:
+          type: string
+        credit:
+          type: number
+          format: float
+        country:
+          type: string
+    ClientDetailsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        client:
+          $ref: '#/components/schemas/ClientDetail'
+    ClientInput:
+      type: object
+      properties:
+        firstname:
+          type: string
+          description: Client first name.
+        lastname:
+          type: string
+          description: Client last name.
+        email:
+          type: string
+          format: email
+          description: Client email address.
+        address1:
+          type: string
+          description: Client address line 1.
+        address2:
+          type: string
+          description: Client address line 2.
+        city:
+          type: string
+          description: Client city.
+        state:
+          type: string
+          description: Client state or region.
+        postcode:
+          type: string
+          description: Client postal or zip code.
+        country:
+          type: string
+          description: Client country (ISO 3166 2-letter code).
+        phonenumber:
+          type: string
+          description: Client phone number.
+        password2:
+          type: string
+          description: Client account password.
+        currency:
+          type: integer
+          description: Currency ID for the client.
+        groupid:
+          type: integer
+          description: Client group ID.
+        notes:
+          type: string
+          description: Internal notes about the client.
+        status:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - Closed
+          description: Client account status.
+        taxexempt:
+          type: boolean
+          description: Whether client is tax exempt.
+    ClientDetail:
+      allOf:
+      - $ref: '#/components/schemas/Client'
+      - type: object
+        properties:
+          address1:
+            type: string
+          address2:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          postcode:
+            type: string
+          phonenumber:
+            type: string
+          notes:
+            type: string
+          taxexempt:
+            type: boolean
+          currencyprefix:
+            type: string
+          currencysuffix:
+            type: string
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+    ClientsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        clients:
+          type: object
+          properties:
+            client:
+              type: array
+              items:
+                $ref: '#/components/schemas/Client'
+    AddClientResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        clientid:
+          type: integer
+          description: ID of the newly created client.
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - success
+          - error
+          description: Operation result status.
+        message:
+          type: string
+          description: Descriptive result message.
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.

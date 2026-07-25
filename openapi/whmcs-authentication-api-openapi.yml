@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: WHMCS Authentication API
+  description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
+  version: 1.0.0
+  contact:
+    name: WHMCS Developer Documentation
+    url: https://developers.whmcs.com/api/
+  license:
+    name: WHMCS License
+    url: https://www.whmcs.com/license/
+servers:
+- url: https://{your-domain}/includes/api.php
+  description: WHMCS API endpoint (self-hosted installation)
+  variables:
+    your-domain:
+      default: example.com
+      description: Your WHMCS installation domain
+security:
+- ApiCredentials: []
+tags:
+- name: Authentication
+  description: OAuth and SSO authentication operations
+paths:
+  /?action=ValidateLogin:
+    post:
+      operationId: validateLogin
+      summary: Validate Login
+      description: Validate client login credentials against WHMCS.
+      tags:
+      - Authentication
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                required:
+                - email
+                - password2
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    description: Client email address.
+                  password2:
+                    type: string
+                    description: Client account password.
+      responses:
+        '200':
+          description: Login validation result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateLoginResponse'
+  /?action=CreateSsoToken:
+    post:
+      operationId: createSsoToken
+      summary: Create SSO Token
+      description: Create a single sign-on token for a client or admin user.
+      tags:
+      - Authentication
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthCredentials'
+              - type: object
+                properties:
+                  client_id:
+                    type: integer
+                    description: Client ID to create SSO token for.
+                  admin_user:
+                    type: string
+                    description: Admin username to create SSO token for.
+                  sso_destination:
+                    type: string
+                    description: Destination URL after SSO redirect.
+      responses:
+        '200':
+          description: SSO token created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SsoTokenResponse'
+components:
+  schemas:
+    ValidateLoginResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        userid:
+          type: integer
+          description: Client user ID if login is valid.
+        passwordreset:
+          type: boolean
+          description: Whether client must reset password.
+    SsoTokenResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        access_token:
+          type: string
+          description: SSO access token.
+        redirect_url:
+          type: string
+          description: URL to redirect client to for SSO login.
+        expires_at:
+          type: string
+          format: date-time
+          description: Token expiration time.
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+  securitySchemes:
+    ApiCredentials:
+      type: apiKey
+      in: query
+      name: identifier
+      description: WHMCS API credentials. Provide identifier and secret parameters in the POST request body, along with the action parameter.
