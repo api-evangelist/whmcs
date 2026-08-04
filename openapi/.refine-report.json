@@ -1,0 +1,26 @@
+{
+  "provider": "whmcs",
+  "sources": [
+    "whmcs-authentication-api-openapi.yml",
+    "whmcs-billing-api-openapi.yml",
+    "whmcs-clients-api-openapi.yml",
+    "whmcs-domains-api-openapi.yml",
+    "whmcs-orders-api-openapi.yml",
+    "whmcs-support-api-openapi.yml",
+    "whmcs-system-api-openapi.yml"
+  ],
+  "outputs": [
+    "whmcs-authentication-api-openapi.yml",
+    "whmcs-billing-api-openapi.yml",
+    "whmcs-clients-api-openapi.yml",
+    "whmcs-domains-api-openapi.yml",
+    "whmcs-orders-api-openapi.yml",
+    "whmcs-support-api-openapi.yml",
+    "whmcs-system-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
