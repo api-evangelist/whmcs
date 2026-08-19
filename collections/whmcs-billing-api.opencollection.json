@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WHMCS Authentication Billing API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "identifier",
+      "value": "{{identifier}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=GetInvoices",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve a list of invoices from WHMCS."
+        },
+        {
+          "info": {
+            "name": "Get Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=GetInvoice",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve a specific invoice from WHMCS."
+        },
+        {
+          "info": {
+            "name": "Create Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=CreateInvoice",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Create a new invoice in WHMCS."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

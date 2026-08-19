@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WHMCS Authentication System API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "identifier",
+      "value": "{{identifier}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get WHMCS Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=WhmcsDetails",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve WHMCS installation details including version and settings."
+        },
+        {
+          "info": {
+            "name": "Get Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=GetStats",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve WHMCS statistics dashboard data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

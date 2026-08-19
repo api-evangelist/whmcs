@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WHMCS Authentication Support API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "identifier",
+      "value": "{{identifier}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Support",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tickets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=GetTickets",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve a list of support tickets from WHMCS."
+        },
+        {
+          "info": {
+            "name": "Open Ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=OpenTicket",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Open a new support ticket in WHMCS."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

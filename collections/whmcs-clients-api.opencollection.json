@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WHMCS Authentication Clients API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "identifier",
+      "value": "{{identifier}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=GetClients",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve a list of clients from WHMCS."
+        },
+        {
+          "info": {
+            "name": "Get Client Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=GetClientsDetails",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Retrieve detailed information for a specific client."
+        },
+        {
+          "info": {
+            "name": "Add Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=AddClient",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Add a new client account to WHMCS."
+        },
+        {
+          "info": {
+            "name": "Update Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=UpdateClient",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Update an existing client account in WHMCS."
+        },
+        {
+          "info": {
+            "name": "Delete Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=DeleteClient",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Delete a client account from WHMCS."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

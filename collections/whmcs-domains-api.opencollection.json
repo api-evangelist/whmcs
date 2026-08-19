@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WHMCS Authentication Domains API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "identifier",
+      "value": "{{identifier}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Domain Register",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=DomainRegister",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Register a new domain via WHMCS."
+        },
+        {
+          "info": {
+            "name": "Domain WHOIS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{your-domain}/includes/api.php/?action=DomainWhois",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Perform a WHOIS lookup on a domain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
