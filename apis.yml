@@ -212,6 +212,8 @@ apis:
   humanURL: https://developers.whmcs.com/
   baseURL: https://{your-domain}/includes/api.php
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
