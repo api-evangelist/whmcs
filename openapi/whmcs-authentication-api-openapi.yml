@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: WHMCS Authentication API
   description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.

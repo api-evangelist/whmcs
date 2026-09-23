@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: WHMCS Authentication Billing API
+  title: WHMCS Billing API
   description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
   version: 1.0.0
   contact:
@@ -155,73 +155,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Invoice'
-    CreateInvoiceResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        invoiceid:
-          type: integer
-          description: ID of the created invoice.
-    InvoiceResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        invoiceid:
-          type: integer
-        userid:
-          type: integer
-        date:
-          type: string
-          format: date
-        duedate:
-          type: string
-          format: date
-        total:
-          type: number
-          format: float
-        status:
-          type: string
-        items:
-          type: object
-          properties:
-            item:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    type: string
-                  description:
-                    type: string
-                  amount:
-                    type: number
-                    format: float
-                  taxed:
-                    type: integer
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
     Invoice:
       type: object
       properties:
@@ -275,6 +208,73 @@ components:
           - Draft
         paymentmethod:
           type: string
+    CreateInvoiceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        invoiceid:
+          type: integer
+          description: ID of the created invoice.
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+    InvoiceResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        invoiceid:
+          type: integer
+        userid:
+          type: integer
+        date:
+          type: string
+          format: date
+        duedate:
+          type: string
+          format: date
+        total:
+          type: number
+          format: float
+        status:
+          type: string
+        items:
+          type: object
+          properties:
+            item:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    type: string
+                  description:
+                    type: string
+                  amount:
+                    type: number
+                    format: float
+                  taxed:
+                    type: integer
   securitySchemes:
     ApiCredentials:
       type: apiKey

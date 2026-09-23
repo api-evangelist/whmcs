@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: WHMCS Authentication System API
+  title: WHMCS System API
   description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
   version: 1.0.0
   contact:
@@ -64,27 +64,26 @@ paths:
                 $ref: '#/components/schemas/StatsResponse'
 components:
   schemas:
-    WhmcsDetailsResponse:
+    AuthCredentials:
       type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
       properties:
-        result:
+        identifier:
           type: string
-        whmcsversion:
+          description: API credential identifier.
+        secret:
           type: string
-        phpversion:
+          description: API credential secret key.
+        responsetype:
           type: string
-        mysqlversion:
-          type: string
-        systemurl:
-          type: string
-        templatedir:
-          type: string
-        activeclients:
-          type: integer
-        activedomains:
-          type: integer
-        activeservices:
-          type: integer
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
     StatsResponse:
       type: object
       properties:
@@ -124,26 +123,27 @@ components:
           type: integer
         clients_closed:
           type: integer
-    AuthCredentials:
+    WhmcsDetailsResponse:
       type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
       properties:
-        identifier:
+        result:
           type: string
-          description: API credential identifier.
-        secret:
+        whmcsversion:
           type: string
-          description: API credential secret key.
-        responsetype:
+        phpversion:
           type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
+        mysqlversion:
+          type: string
+        systemurl:
+          type: string
+        templatedir:
+          type: string
+        activeclients:
+          type: integer
+        activedomains:
+          type: integer
+        activeservices:
+          type: integer
   securitySchemes:
     ApiCredentials:
       type: apiKey

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: WHMCS Authentication Orders API
+  title: WHMCS Orders API
   description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
   version: 1.0.0
   contact:
@@ -138,49 +138,6 @@ paths:
                 $ref: '#/components/schemas/ProductsListResponse'
 components:
   schemas:
-    ProductsListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        products:
-          type: object
-          properties:
-            product:
-              type: array
-              items:
-                $ref: '#/components/schemas/Product'
-    Order:
-      type: object
-      properties:
-        id:
-          type: integer
-        ordernum:
-          type: string
-        userid:
-          type: integer
-        contactid:
-          type: integer
-        date:
-          type: string
-          format: date-time
-        currencyprefix:
-          type: string
-        currencysuffix:
-          type: string
-        amount:
-          type: number
-          format: float
-        status:
-          type: string
-        paymentmethod:
-          type: string
-        invoiceid:
-          type: integer
-        notes:
-          type: string
     AddOrderResponse:
       type: object
       properties:
@@ -197,25 +154,6 @@ components:
           type: string
         invoiceid:
           type: integer
-    Product:
-      type: object
-      properties:
-        pid:
-          type: integer
-        gid:
-          type: integer
-        type:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        module:
-          type: string
-        paytype:
-          type: string
-        pricing:
-          type: object
     OrdersListResponse:
       type: object
       properties:
@@ -254,6 +192,68 @@ components:
           - xml
           default: json
           description: Response format type.
+    ProductsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        products:
+          type: object
+          properties:
+            product:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        pid:
+          type: integer
+        gid:
+          type: integer
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        module:
+          type: string
+        paytype:
+          type: string
+        pricing:
+          type: object
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        ordernum:
+          type: string
+        userid:
+          type: integer
+        contactid:
+          type: integer
+        date:
+          type: string
+          format: date-time
+        currencyprefix:
+          type: string
+        currencysuffix:
+          type: string
+        amount:
+          type: number
+          format: float
+        status:
+          type: string
+        paymentmethod:
+          type: string
+        invoiceid:
+          type: integer
+        notes:
+          type: string
   securitySchemes:
     ApiCredentials:
       type: apiKey

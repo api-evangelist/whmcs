@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: WHMCS Authentication Support API
+  title: WHMCS Support API
   description: The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.
   version: 1.0.0
   contact:
@@ -174,20 +174,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Ticket'
-    OpenTicketResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        id:
-          type: integer
-          description: Internal ticket ID.
-        tid:
-          type: string
-          description: Public-facing ticket identifier.
-        c:
-          type: string
-          description: Ticket code for client access.
     AuthCredentials:
       type: object
       required:
@@ -208,6 +194,20 @@ components:
           - xml
           default: json
           description: Response format type.
+    OpenTicketResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        id:
+          type: integer
+          description: Internal ticket ID.
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        c:
+          type: string
+          description: Ticket code for client access.
   securitySchemes:
     ApiCredentials:
       type: apiKey

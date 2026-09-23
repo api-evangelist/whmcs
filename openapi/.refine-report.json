@@ -1,13 +1,7 @@
 {
   "provider": "whmcs",
   "sources": [
-    "whmcs-authentication-api-openapi.yml",
-    "whmcs-billing-api-openapi.yml",
-    "whmcs-clients-api-openapi.yml",
-    "whmcs-domains-api-openapi.yml",
-    "whmcs-orders-api-openapi.yml",
-    "whmcs-support-api-openapi.yml",
-    "whmcs-system-api-openapi.yml"
+    "_original/whmcs-openapi.yml"
   ],
   "outputs": [
     "whmcs-authentication-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "whmcs-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "whmcs-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whmcs-billing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whmcs-clients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whmcs-domains-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whmcs-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whmcs-support-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whmcs-system-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
