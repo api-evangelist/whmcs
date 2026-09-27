@@ -185,71 +185,6 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - success
-          - error
-          description: Operation result status.
-        message:
-          type: string
-          description: Descriptive result message.
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
-    AddClientResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        clientid:
-          type: integer
-          description: ID of the newly created client.
-    Client:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Client ID.
-        firstname:
-          type: string
-        lastname:
-          type: string
-        email:
-          type: string
-          format: email
-        datecreated:
-          type: string
-          format: date
-        groupid:
-          type: integer
-        status:
-          type: string
-        credit:
-          type: number
-          format: float
-        country:
-          type: string
     ClientsListResponse:
       type: object
       properties:
@@ -268,31 +203,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Client'
-    ClientDetail:
-      allOf:
-      - $ref: '#/components/schemas/Client'
-      - type: object
-        properties:
-          address1:
-            type: string
-          address2:
-            type: string
-          city:
-            type: string
-          state:
-            type: string
-          postcode:
-            type: string
-          phonenumber:
-            type: string
-          notes:
-            type: string
-          taxexempt:
-            type: boolean
-          currencyprefix:
-            type: string
-          currencysuffix:
-            type: string
     ClientInput:
       type: object
       properties:
@@ -349,6 +259,76 @@ components:
         taxexempt:
           type: boolean
           description: Whether client is tax exempt.
+    ClientDetail:
+      allOf:
+      - $ref: '#/components/schemas/Client'
+      - type: object
+        properties:
+          address1:
+            type: string
+          address2:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          postcode:
+            type: string
+          phonenumber:
+            type: string
+          notes:
+            type: string
+          taxexempt:
+            type: boolean
+          currencyprefix:
+            type: string
+          currencysuffix:
+            type: string
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Client ID.
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+        datecreated:
+          type: string
+          format: date
+        groupid:
+          type: integer
+        status:
+          type: string
+        credit:
+          type: number
+          format: float
+        country:
+          type: string
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - success
+          - error
+          description: Operation result status.
+        message:
+          type: string
+          description: Descriptive result message.
+    AddClientResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        clientid:
+          type: integer
+          description: ID of the newly created client.
     ClientDetailsResponse:
       type: object
       properties:
@@ -356,6 +336,26 @@ components:
           type: string
         client:
           $ref: '#/components/schemas/ClientDetail'
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
   securitySchemes:
     ApiCredentials:
       type: apiKey

@@ -80,16 +80,6 @@ paths:
                 $ref: '#/components/schemas/DomainWhoisResponse'
 components:
   schemas:
-    DomainWhoisResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        domain:
-          type: string
-        status:
-          type: string
-          description: Registration status of the domain.
     SuccessResponse:
       type: object
       properties:
@@ -102,6 +92,16 @@ components:
         message:
           type: string
           description: Descriptive result message.
+    DomainWhoisResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        domain:
+          type: string
+        status:
+          type: string
+          description: Registration status of the domain.
     AuthCredentials:
       type: object
       required:

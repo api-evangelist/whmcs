@@ -117,6 +117,38 @@ paths:
                 $ref: '#/components/schemas/OpenTicketResponse'
 components:
   schemas:
+    OpenTicketResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        id:
+          type: integer
+          description: Internal ticket ID.
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        c:
+          type: string
+          description: Ticket code for client access.
+    TicketsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        tickets:
+          type: object
+          properties:
+            ticket:
+              type: array
+              items:
+                $ref: '#/components/schemas/Ticket'
     Ticket:
       type: object
       properties:
@@ -156,24 +188,6 @@ components:
           type: integer
         service:
           type: string
-    TicketsListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        tickets:
-          type: object
-          properties:
-            ticket:
-              type: array
-              items:
-                $ref: '#/components/schemas/Ticket'
     AuthCredentials:
       type: object
       required:
@@ -194,20 +208,6 @@ components:
           - xml
           default: json
           description: Response format type.
-    OpenTicketResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        id:
-          type: integer
-          description: Internal ticket ID.
-        tid:
-          type: string
-          description: Public-facing ticket identifier.
-        c:
-          type: string
-          description: Ticket code for client access.
   securitySchemes:
     ApiCredentials:
       type: apiKey
