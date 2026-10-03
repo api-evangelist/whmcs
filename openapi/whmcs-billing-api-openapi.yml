@@ -137,24 +137,26 @@ paths:
                 $ref: '#/components/schemas/CreateInvoiceResponse'
 components:
   schemas:
-    InvoicesListResponse:
+    AuthCredentials:
       type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
       properties:
-        result:
+        identifier:
           type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        invoices:
-          type: object
-          properties:
-            invoice:
-              type: array
-              items:
-                $ref: '#/components/schemas/Invoice'
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
     InvoiceResponse:
       type: object
       properties:
@@ -194,6 +196,24 @@ components:
                     format: float
                   taxed:
                     type: integer
+    InvoicesListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        invoices:
+          type: object
+          properties:
+            invoice:
+              type: array
+              items:
+                $ref: '#/components/schemas/Invoice'
     CreateInvoiceResponse:
       type: object
       properties:
@@ -255,26 +275,6 @@ components:
           - Draft
         paymentmethod:
           type: string
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
   securitySchemes:
     ApiCredentials:
       type: apiKey

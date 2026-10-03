@@ -80,28 +80,6 @@ paths:
                 $ref: '#/components/schemas/DomainWhoisResponse'
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - success
-          - error
-          description: Operation result status.
-        message:
-          type: string
-          description: Descriptive result message.
-    DomainWhoisResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        domain:
-          type: string
-        status:
-          type: string
-          description: Registration status of the domain.
     AuthCredentials:
       type: object
       required:
@@ -122,6 +100,28 @@ components:
           - xml
           default: json
           description: Response format type.
+    DomainWhoisResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        domain:
+          type: string
+        status:
+          type: string
+          description: Registration status of the domain.
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - success
+          - error
+          description: Operation result status.
+        message:
+          type: string
+          description: Descriptive result message.
   securitySchemes:
     ApiCredentials:
       type: apiKey

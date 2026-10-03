@@ -131,24 +131,26 @@ components:
         c:
           type: string
           description: Ticket code for client access.
-    TicketsListResponse:
+    AuthCredentials:
       type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
       properties:
-        result:
+        identifier:
           type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        tickets:
-          type: object
-          properties:
-            ticket:
-              type: array
-              items:
-                $ref: '#/components/schemas/Ticket'
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
     Ticket:
       type: object
       properties:
@@ -188,26 +190,24 @@ components:
           type: integer
         service:
           type: string
-    AuthCredentials:
+    TicketsListResponse:
       type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
       properties:
-        identifier:
+        result:
           type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        tickets:
+          type: object
+          properties:
+            ticket:
+              type: array
+              items:
+                $ref: '#/components/schemas/Ticket'
   securitySchemes:
     ApiCredentials:
       type: apiKey

@@ -138,25 +138,74 @@ paths:
                 $ref: '#/components/schemas/ProductsListResponse'
 components:
   schemas:
-    Product:
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+    AddOrderResponse:
       type: object
       properties:
-        pid:
+        result:
+          type: string
+        orderid:
           type: integer
-        gid:
+          description: ID of the created order.
+        productids:
+          type: string
+        addonids:
+          type: string
+        domainids:
+          type: string
+        invoiceid:
           type: integer
-        type:
+    ProductsListResponse:
+      type: object
+      properties:
+        result:
           type: string
-        name:
-          type: string
-        description:
-          type: string
-        module:
-          type: string
-        paytype:
-          type: string
-        pricing:
+        totalresults:
+          type: integer
+        products:
           type: object
+          properties:
+            product:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+    OrdersListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        orders:
+          type: object
+          properties:
+            order:
+              type: array
+              items:
+                $ref: '#/components/schemas/Order'
     Order:
       type: object
       properties:
@@ -186,74 +235,25 @@ components:
           type: integer
         notes:
           type: string
-    AddOrderResponse:
+    Product:
       type: object
       properties:
-        result:
-          type: string
-        orderid:
+        pid:
           type: integer
-          description: ID of the created order.
-        productids:
-          type: string
-        addonids:
-          type: string
-        domainids:
-          type: string
-        invoiceid:
+        gid:
           type: integer
-    OrdersListResponse:
-      type: object
-      properties:
-        result:
+        type:
           type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        orders:
+        name:
+          type: string
+        description:
+          type: string
+        module:
+          type: string
+        paytype:
+          type: string
+        pricing:
           type: object
-          properties:
-            order:
-              type: array
-              items:
-                $ref: '#/components/schemas/Order'
-    ProductsListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        products:
-          type: object
-          properties:
-            product:
-              type: array
-              items:
-                $ref: '#/components/schemas/Product'
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
   securitySchemes:
     ApiCredentials:
       type: apiKey

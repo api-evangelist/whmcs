@@ -185,24 +185,6 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
-    ClientsListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        clients:
-          type: object
-          properties:
-            client:
-              type: array
-              items:
-                $ref: '#/components/schemas/Client'
     ClientInput:
       type: object
       properties:
@@ -259,31 +241,44 @@ components:
         taxexempt:
           type: boolean
           description: Whether client is tax exempt.
-    ClientDetail:
-      allOf:
-      - $ref: '#/components/schemas/Client'
-      - type: object
-        properties:
-          address1:
-            type: string
-          address2:
-            type: string
-          city:
-            type: string
-          state:
-            type: string
-          postcode:
-            type: string
-          phonenumber:
-            type: string
-          notes:
-            type: string
-          taxexempt:
-            type: boolean
-          currencyprefix:
-            type: string
-          currencysuffix:
-            type: string
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
+    ClientsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        clients:
+          type: object
+          properties:
+            client:
+              type: array
+              items:
+                $ref: '#/components/schemas/Client'
     Client:
       type: object
       properties:
@@ -309,6 +304,14 @@ components:
           format: float
         country:
           type: string
+    AddClientResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        clientid:
+          type: integer
+          description: ID of the newly created client.
     SuccessResponse:
       type: object
       properties:
@@ -321,14 +324,6 @@ components:
         message:
           type: string
           description: Descriptive result message.
-    AddClientResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        clientid:
-          type: integer
-          description: ID of the newly created client.
     ClientDetailsResponse:
       type: object
       properties:
@@ -336,26 +331,31 @@ components:
           type: string
         client:
           $ref: '#/components/schemas/ClientDetail'
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
+    ClientDetail:
+      allOf:
+      - $ref: '#/components/schemas/Client'
+      - type: object
+        properties:
+          address1:
+            type: string
+          address2:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+          postcode:
+            type: string
+          phonenumber:
+            type: string
+          notes:
+            type: string
+          taxexempt:
+            type: boolean
+          currencyprefix:
+            type: string
+          currencysuffix:
+            type: string
   securitySchemes:
     ApiCredentials:
       type: apiKey
