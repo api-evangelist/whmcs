@@ -137,26 +137,14 @@ paths:
                 $ref: '#/components/schemas/CreateInvoiceResponse'
 components:
   schemas:
-    AuthCredentials:
+    CreateInvoiceResponse:
       type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
       properties:
-        identifier:
+        result:
           type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
+        invoiceid:
+          type: integer
+          description: ID of the created invoice.
     InvoiceResponse:
       type: object
       properties:
@@ -214,14 +202,26 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Invoice'
-    CreateInvoiceResponse:
+    AuthCredentials:
       type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
       properties:
-        result:
+        identifier:
           type: string
-        invoiceid:
-          type: integer
-          description: ID of the created invoice.
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
     Invoice:
       type: object
       properties:

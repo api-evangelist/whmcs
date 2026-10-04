@@ -64,6 +64,26 @@ paths:
                 $ref: '#/components/schemas/StatsResponse'
 components:
   schemas:
+    AuthCredentials:
+      type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
+      properties:
+        identifier:
+          type: string
+          description: API credential identifier.
+        secret:
+          type: string
+          description: API credential secret key.
+        responsetype:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
     StatsResponse:
       type: object
       properties:
@@ -124,26 +144,6 @@ components:
           type: integer
         activeservices:
           type: integer
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
   securitySchemes:
     ApiCredentials:
       type: apiKey

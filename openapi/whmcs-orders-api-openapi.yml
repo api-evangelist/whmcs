@@ -138,6 +138,55 @@ paths:
                 $ref: '#/components/schemas/ProductsListResponse'
 components:
   schemas:
+    Product:
+      type: object
+      properties:
+        pid:
+          type: integer
+        gid:
+          type: integer
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        module:
+          type: string
+        paytype:
+          type: string
+        pricing:
+          type: object
+    ProductsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        products:
+          type: object
+          properties:
+            product:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+    AddOrderResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        orderid:
+          type: integer
+          description: ID of the created order.
+        productids:
+          type: string
+        addonids:
+          type: string
+        domainids:
+          type: string
+        invoiceid:
+          type: integer
     AuthCredentials:
       type: object
       required:
@@ -158,36 +207,6 @@ components:
           - xml
           default: json
           description: Response format type.
-    AddOrderResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        orderid:
-          type: integer
-          description: ID of the created order.
-        productids:
-          type: string
-        addonids:
-          type: string
-        domainids:
-          type: string
-        invoiceid:
-          type: integer
-    ProductsListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        products:
-          type: object
-          properties:
-            product:
-              type: array
-              items:
-                $ref: '#/components/schemas/Product'
     OrdersListResponse:
       type: object
       properties:
@@ -235,25 +254,6 @@ components:
           type: integer
         notes:
           type: string
-    Product:
-      type: object
-      properties:
-        pid:
-          type: integer
-        gid:
-          type: integer
-        type:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        module:
-          type: string
-        paytype:
-          type: string
-        pricing:
-          type: object
   securitySchemes:
     ApiCredentials:
       type: apiKey

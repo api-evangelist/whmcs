@@ -117,20 +117,6 @@ paths:
                 $ref: '#/components/schemas/OpenTicketResponse'
 components:
   schemas:
-    OpenTicketResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        id:
-          type: integer
-          description: Internal ticket ID.
-        tid:
-          type: string
-          description: Public-facing ticket identifier.
-        c:
-          type: string
-          description: Ticket code for client access.
     AuthCredentials:
       type: object
       required:
@@ -208,6 +194,20 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Ticket'
+    OpenTicketResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        id:
+          type: integer
+          description: Internal ticket ID.
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        c:
+          type: string
+          description: Ticket code for client access.
   securitySchemes:
     ApiCredentials:
       type: apiKey

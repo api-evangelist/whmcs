@@ -109,17 +109,6 @@ components:
           - xml
           default: json
           description: Response format type.
-    ValidateLoginResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        userid:
-          type: integer
-          description: Client user ID if login is valid.
-        passwordreset:
-          type: boolean
-          description: Whether client must reset password.
     SsoTokenResponse:
       type: object
       properties:
@@ -135,6 +124,17 @@ components:
           type: string
           format: date-time
           description: Token expiration time.
+    ValidateLoginResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        userid:
+          type: integer
+          description: Client user ID if login is valid.
+        passwordreset:
+          type: boolean
+          description: Whether client must reset password.
   securitySchemes:
     ApiCredentials:
       type: apiKey

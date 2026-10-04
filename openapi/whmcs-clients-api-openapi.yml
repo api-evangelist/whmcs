@@ -185,6 +185,31 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Client ID.
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+        datecreated:
+          type: string
+          format: date
+        groupid:
+          type: integer
+        status:
+          type: string
+        credit:
+          type: number
+          format: float
+        country:
+          type: string
     ClientInput:
       type: object
       properties:
@@ -241,6 +266,14 @@ components:
         taxexempt:
           type: boolean
           description: Whether client is tax exempt.
+    AddClientResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        clientid:
+          type: integer
+          description: ID of the newly created client.
     AuthCredentials:
       type: object
       required:
@@ -261,57 +294,6 @@ components:
           - xml
           default: json
           description: Response format type.
-    ClientsListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        clients:
-          type: object
-          properties:
-            client:
-              type: array
-              items:
-                $ref: '#/components/schemas/Client'
-    Client:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Client ID.
-        firstname:
-          type: string
-        lastname:
-          type: string
-        email:
-          type: string
-          format: email
-        datecreated:
-          type: string
-          format: date
-        groupid:
-          type: integer
-        status:
-          type: string
-        credit:
-          type: number
-          format: float
-        country:
-          type: string
-    AddClientResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        clientid:
-          type: integer
-          description: ID of the newly created client.
     SuccessResponse:
       type: object
       properties:
@@ -324,13 +306,6 @@ components:
         message:
           type: string
           description: Descriptive result message.
-    ClientDetailsResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        client:
-          $ref: '#/components/schemas/ClientDetail'
     ClientDetail:
       allOf:
       - $ref: '#/components/schemas/Client'
@@ -356,6 +331,31 @@ components:
             type: string
           currencysuffix:
             type: string
+    ClientDetailsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        client:
+          $ref: '#/components/schemas/ClientDetail'
+    ClientsListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        clients:
+          type: object
+          properties:
+            client:
+              type: array
+              items:
+                $ref: '#/components/schemas/Client'
   securitySchemes:
     ApiCredentials:
       type: apiKey
