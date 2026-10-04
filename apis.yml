@@ -350,6 +350,9 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/whmcs/main/vocabulary/whmcs-vocabulary.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/whmcs-capability-edges.yml
+    name: WHMCS Business Capability Map
   - type: AgenticAccess
     url: agentic-access/whmcs-agentic-access.yml
   - type: VulnerabilityDisclosure
