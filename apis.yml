@@ -350,6 +350,12 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/whmcs/main/vocabulary/whmcs-vocabulary.yml
 common:
+  - type: Plans
+    url: plans/whmcs-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/whmcs-rate-limits.yml
+  - type: FinOps
+    url: finops/whmcs-finops.yml
   - type: CapabilityMap
     url: capabilities/whmcs-capability-edges.yml
     name: WHMCS Business Capability Map
