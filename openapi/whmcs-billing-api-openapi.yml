@@ -137,6 +137,24 @@ paths:
                 $ref: '#/components/schemas/CreateInvoiceResponse'
 components:
   schemas:
+    InvoicesListResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        totalresults:
+          type: integer
+        startnumber:
+          type: integer
+        numreturned:
+          type: integer
+        invoices:
+          type: object
+          properties:
+            invoice:
+              type: array
+              items:
+                $ref: '#/components/schemas/Invoice'
     CreateInvoiceResponse:
       type: object
       properties:
@@ -184,24 +202,6 @@ components:
                     format: float
                   taxed:
                     type: integer
-    InvoicesListResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        totalresults:
-          type: integer
-        startnumber:
-          type: integer
-        numreturned:
-          type: integer
-        invoices:
-          type: object
-          properties:
-            invoice:
-              type: array
-              items:
-                $ref: '#/components/schemas/Invoice'
     AuthCredentials:
       type: object
       required:

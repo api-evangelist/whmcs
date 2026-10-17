@@ -89,6 +89,32 @@ paths:
                 $ref: '#/components/schemas/SsoTokenResponse'
 components:
   schemas:
+    ValidateLoginResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        userid:
+          type: integer
+          description: Client user ID if login is valid.
+        passwordreset:
+          type: boolean
+          description: Whether client must reset password.
+    SsoTokenResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        access_token:
+          type: string
+          description: SSO access token.
+        redirect_url:
+          type: string
+          description: URL to redirect client to for SSO login.
+        expires_at:
+          type: string
+          format: date-time
+          description: Token expiration time.
     AuthCredentials:
       type: object
       required:
@@ -109,32 +135,6 @@ components:
           - xml
           default: json
           description: Response format type.
-    SsoTokenResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        access_token:
-          type: string
-          description: SSO access token.
-        redirect_url:
-          type: string
-          description: URL to redirect client to for SSO login.
-        expires_at:
-          type: string
-          format: date-time
-          description: Token expiration time.
-    ValidateLoginResponse:
-      type: object
-      properties:
-        result:
-          type: string
-        userid:
-          type: integer
-          description: Client user ID if login is valid.
-        passwordreset:
-          type: boolean
-          description: Whether client must reset password.
   securitySchemes:
     ApiCredentials:
       type: apiKey

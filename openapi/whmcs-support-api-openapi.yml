@@ -117,26 +117,6 @@ paths:
                 $ref: '#/components/schemas/OpenTicketResponse'
 components:
   schemas:
-    AuthCredentials:
-      type: object
-      required:
-      - identifier
-      - secret
-      - responsetype
-      properties:
-        identifier:
-          type: string
-          description: API credential identifier.
-        secret:
-          type: string
-          description: API credential secret key.
-        responsetype:
-          type: string
-          enum:
-          - json
-          - xml
-          default: json
-          description: Response format type.
     Ticket:
       type: object
       properties:
@@ -176,6 +156,20 @@ components:
           type: integer
         service:
           type: string
+    OpenTicketResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        id:
+          type: integer
+          description: Internal ticket ID.
+        tid:
+          type: string
+          description: Public-facing ticket identifier.
+        c:
+          type: string
+          description: Ticket code for client access.
     TicketsListResponse:
       type: object
       properties:
@@ -194,20 +188,26 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Ticket'
-    OpenTicketResponse:
+    AuthCredentials:
       type: object
+      required:
+      - identifier
+      - secret
+      - responsetype
       properties:
-        result:
+        identifier:
           type: string
-        id:
-          type: integer
-          description: Internal ticket ID.
-        tid:
+          description: API credential identifier.
+        secret:
           type: string
-          description: Public-facing ticket identifier.
-        c:
+          description: API credential secret key.
+        responsetype:
           type: string
-          description: Ticket code for client access.
+          enum:
+          - json
+          - xml
+          default: json
+          description: Response format type.
   securitySchemes:
     ApiCredentials:
       type: apiKey
