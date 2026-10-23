@@ -350,6 +350,8 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/whmcs/main/vocabulary/whmcs-vocabulary.yml
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/whmcs/overview
   - type: Plans
     url: plans/whmcs-plans-pricing.yml
   - type: RateLimits
