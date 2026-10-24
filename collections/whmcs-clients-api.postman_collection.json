@@ -1,44 +1,198 @@
 {
+  "info": {
+    "_postman_id": "1db852d9-9bce-44b6-bee4-485c4b406fce",
+    "name": "WHMCS Clients API",
+    "description": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:03:31.000Z",
+    "updatedAt": "2026-10-22T02:03:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1db852d9-9bce-44b6-bee4-485c4b406fce"
+  },
   "item": [
     {
-      "id": "ce717f5c-d2ec-4ebe-99e7-eda673ae6370",
-      "name": "Clients",
-      "description": {
-        "content": "Client account management operations",
-        "type": "text/plain"
-      },
+      "name": "?action=GetClients",
       "item": [
         {
-          "id": "ee32ab11-af5c-4ea5-acd9-14f4767f113d",
           "name": "Get Clients",
+          "id": "50b0de5a-d869-474a-bb88-80a2d767ac29",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Clients",
-            "description": {
-              "content": "Retrieve a list of clients from WHMCS.",
-              "type": "text/plain"
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "identifier",
+                  "value": "<string>"
+                },
+                {
+                  "key": "secret",
+                  "value": "<string>"
+                },
+                {
+                  "key": "responsetype",
+                  "value": "json"
+                },
+                {
+                  "key": "limitstart",
+                  "value": "0"
+                },
+                {
+                  "key": "limitnum",
+                  "value": "25"
+                },
+                {
+                  "key": "sorting",
+                  "value": "DESC"
+                },
+                {
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "key": "groupid",
+                  "value": "<integer>"
+                }
+              ]
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=GetClients",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "GetClients"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Retrieve a list of clients from WHMCS."
+          },
+          "response": [
+            {
+              "id": "575d1427-7ccd-49f7-9cac-b346313d69cf",
+              "name": "List of clients.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "limitstart",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limitnum",
+                      "value": "25"
+                    },
+                    {
+                      "key": "sorting",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupid",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"totalresults\": \"<integer>\",\n  \"startnumber\": \"<integer>\",\n  \"numreturned\": \"<integer>\",\n  \"clients\": {\n    \"client\": [\n      {\n        \"id\": \"<integer>\",\n        \"firstname\": \"<string>\",\n        \"lastname\": \"<string>\",\n        \"email\": \"<email>\",\n        \"datecreated\": \"<date>\",\n        \"groupid\": \"<integer>\",\n        \"status\": \"<string>\",\n        \"credit\": \"<float>\",\n        \"country\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"firstname\": \"<string>\",\n        \"lastname\": \"<string>\",\n        \"email\": \"<email>\",\n        \"datecreated\": \"<date>\",\n        \"groupid\": \"<integer>\",\n        \"status\": \"<string>\",\n        \"credit\": \"<float>\",\n        \"country\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-10-22T02:03:32.000Z",
+              "updatedAt": "2026-10-22T02:03:32.000Z",
+              "uid": "35240-575d1427-7ccd-49f7-9cac-b346313d69cf"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:32.000Z",
+          "updatedAt": "2026-10-22T02:03:32.000Z",
+          "uid": "35240-50b0de5a-d869-474a-bb88-80a2d767ac29"
+        }
+      ],
+      "id": "d563d30c-164a-43ff-bdf0-1096bec19596",
+      "createdAt": "2026-10-22T02:03:32.000Z",
+      "updatedAt": "2026-10-22T02:03:32.000Z",
+      "uid": "35240-d563d30c-164a-43ff-bdf0-1096bec19596"
+    },
+    {
+      "name": "?action=GetClientsDetails",
+      "item": [
+        {
+          "name": "Get Client Details",
+          "id": "fa2c1116-a84b-4e09-998d-9aa65597aa3b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -49,183 +203,152 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "secret",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "responsetype",
                   "value": "json"
                 },
                 {
-                  "disabled": false,
-                  "key": "limitstart",
-                  "value": "0"
-                },
-                {
-                  "disabled": false,
-                  "key": "limitnum",
-                  "value": "25"
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "search",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "groupid",
+                  "key": "clientid",
                   "value": "<integer>"
+                },
+                {
+                  "key": "email",
+                  "value": "<email>"
+                },
+                {
+                  "key": "stats",
+                  "value": "<boolean>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "0cd8cdbe-d37d-4b87-a65e-94eca2331d6c",
-              "name": "List of clients.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "limitstart",
-                      "value": "0"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "limitnum",
-                      "value": "25"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "sorting",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "groupid",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"totalresults\": 3454,\n  \"startnumber\": 1741,\n  \"numreturned\": 4070,\n  \"clients\": {\n    \"client\": [\n      {\n        \"id\": 2662,\n        \"firstname\": \"string\",\n        \"lastname\": \"string\",\n        \"email\": \"PYx9CMGYoMS@ocjnTQPJFgTvwexnftdioPV.rp\",\n        \"datecreated\": \"2008-11-03\",\n        \"groupid\": 3698,\n        \"status\": \"string\",\n        \"credit\": 9305.15954834391,\n        \"country\": \"string\"\n      },\n      {\n        \"id\": 3667,\n        \"firstname\": \"string\",\n        \"lastname\": \"string\",\n        \"email\": \"PQhLkvt5H1saw@t.sspv\",\n        \"datecreated\": \"1946-11-28\",\n        \"groupid\": 6847,\n        \"status\": \"string\",\n        \"credit\": 6856.8060803401495,\n        \"country\": \"string\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b6996845-557a-480d-a3ae-978f567adb40",
-          "name": "Get Client Details",
-          "request": {
-            "name": "Get Client Details",
-            "description": {
-              "content": "Retrieve detailed information for a specific client.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=GetClientsDetails",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "GetClientsDetails"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Retrieve detailed information for a specific client."
+          },
+          "response": [
+            {
+              "id": "ef2e3f19-8b4e-4903-8214-185bbe0fbc83",
+              "name": "Client details.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "clientid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "stats",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"client\": {\n    \"id\": \"<integer>\",\n    \"firstname\": \"<string>\",\n    \"lastname\": \"<string>\",\n    \"email\": \"<email>\",\n    \"datecreated\": \"<date>\",\n    \"groupid\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"credit\": \"<float>\",\n    \"country\": \"<string>\",\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"phonenumber\": \"<string>\",\n    \"notes\": \"<string>\",\n    \"taxexempt\": \"<boolean>\",\n    \"currencyprefix\": \"<string>\",\n    \"currencysuffix\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:03:32.000Z",
+              "updatedAt": "2026-10-22T02:03:32.000Z",
+              "uid": "35240-ef2e3f19-8b4e-4903-8214-185bbe0fbc83"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:32.000Z",
+          "updatedAt": "2026-10-22T02:03:32.000Z",
+          "uid": "35240-fa2c1116-a84b-4e09-998d-9aa65597aa3b"
+        }
+      ],
+      "id": "341dc5b7-df3c-467a-8be1-9b985502e1b1",
+      "createdAt": "2026-10-22T02:03:32.000Z",
+      "updatedAt": "2026-10-22T02:03:32.000Z",
+      "uid": "35240-341dc5b7-df3c-467a-8be1-9b985502e1b1"
+    },
+    {
+      "name": "?action=AddClient",
+      "item": [
+        {
+          "name": "Add Client",
+          "id": "62194def-54c1-4180-b470-67d53adf1d51",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -236,163 +359,256 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "secret",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "responsetype",
                   "value": "json"
                 },
                 {
-                  "disabled": false,
-                  "key": "clientid",
-                  "value": "<integer>"
+                  "key": "firstname",
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "key": "lastname",
+                  "value": "<string>"
+                },
+                {
                   "key": "email",
                   "value": "<email>"
                 },
                 {
-                  "disabled": false,
-                  "key": "stats",
+                  "key": "address1",
+                  "value": "<string>"
+                },
+                {
+                  "key": "address2",
+                  "value": "<string>"
+                },
+                {
+                  "key": "city",
+                  "value": "<string>"
+                },
+                {
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "key": "postcode",
+                  "value": "<string>"
+                },
+                {
+                  "key": "country",
+                  "value": "<string>"
+                },
+                {
+                  "key": "phonenumber",
+                  "value": "<string>"
+                },
+                {
+                  "key": "password2",
+                  "value": "<string>"
+                },
+                {
+                  "key": "currency",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "groupid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "notes",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "Active"
+                },
+                {
+                  "key": "taxexempt",
                   "value": "<boolean>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "b6941e2c-e898-4437-8439-019e18e4e1eb",
-              "name": "Client details.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "clientid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "stats",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"client\": {\n    \"id\": 7417,\n    \"firstname\": \"string\",\n    \"lastname\": \"string\",\n    \"email\": \"LMfkJwB@WXIzIVNeZPxfPsOqbuBaFzrNdgI.jq\",\n    \"datecreated\": \"2018-03-11\",\n    \"groupid\": 8912,\n    \"status\": \"string\",\n    \"credit\": 1144.9189180371134,\n    \"country\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"postcode\": \"string\",\n    \"phonenumber\": \"string\",\n    \"notes\": \"string\",\n    \"taxexempt\": false,\n    \"currencyprefix\": \"string\",\n    \"currencysuffix\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "da577cfc-b37f-4ee3-9846-6bdf023fc88e",
-          "name": "Add Client",
-          "request": {
-            "name": "Add Client",
-            "description": {
-              "content": "Add a new client account to WHMCS.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=AddClient",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "AddClient"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Add a new client account to WHMCS."
+          },
+          "response": [
+            {
+              "id": "8b6cb122-3767-42ca-864a-6bbdbc79eefd",
+              "name": "Client created successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "address1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postcode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phonenumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "password2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "groupid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "taxexempt",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"clientid\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:03:32.000Z",
+              "updatedAt": "2026-10-22T02:03:32.000Z",
+              "uid": "35240-8b6cb122-3767-42ca-864a-6bbdbc79eefd"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:32.000Z",
+          "updatedAt": "2026-10-22T02:03:32.000Z",
+          "uid": "35240-62194def-54c1-4180-b470-67d53adf1d51"
+        }
+      ],
+      "id": "39b1b1a6-ccf6-4735-82e5-46a3b55dc53b",
+      "createdAt": "2026-10-22T02:03:32.000Z",
+      "updatedAt": "2026-10-22T02:03:32.000Z",
+      "uid": "35240-39b1b1a6-ccf6-4735-82e5-46a3b55dc53b"
+    },
+    {
+      "name": "?action=UpdateClient",
+      "item": [
+        {
+          "name": "Update Client",
+          "id": "b38ec5ee-2d15-4ea4-ab33-6f5e7298c6f6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -403,293 +619,264 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
+                  "key": "clientid",
+                  "value": "<integer>"
+                },
+                {
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
-                  "key": "secret",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
                   "key": "responsetype",
                   "value": "json"
                 },
                 {
-                  "disabled": false,
+                  "key": "secret",
+                  "value": "<string>"
+                },
+                {
                   "key": "firstname",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "lastname",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "email",
                   "value": "<email>"
                 },
                 {
-                  "disabled": false,
                   "key": "address1",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "address2",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "city",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "state",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "postcode",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "country",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "phonenumber",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "password2",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "currency",
                   "value": "<integer>"
                 },
                 {
-                  "disabled": false,
                   "key": "groupid",
                   "value": "<integer>"
                 },
                 {
-                  "disabled": false,
                   "key": "notes",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "status",
-                  "value": "<string>"
+                  "value": "Inactive"
                 },
                 {
-                  "disabled": false,
                   "key": "taxexempt",
                   "value": "<boolean>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "60f2bfc7-662a-4a34-b5ba-8b5b758b1056",
-              "name": "Client created successfully.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "firstname",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "lastname",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "address1",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "address2",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "city",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "postcode",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "country",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "phonenumber",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "password2",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "currency",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "groupid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "notes",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "taxexempt",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"clientid\": 3819\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "095c0731-ba3e-472e-a912-c52dd0723152",
-          "name": "Update Client",
-          "request": {
-            "name": "Update Client",
-            "description": {
-              "content": "Update an existing client account in WHMCS.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=UpdateClient",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "UpdateClient"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Update an existing client account in WHMCS."
+          },
+          "response": [
+            {
+              "id": "e09393a1-824b-4a45-80ab-80fbc0803567",
+              "name": "Client updated successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "clientid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "address1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postcode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phonenumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "password2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "groupid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Inactive"
+                    },
+                    {
+                      "key": "taxexempt",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"success\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:03:32.000Z",
+              "updatedAt": "2026-10-22T02:03:32.000Z",
+              "uid": "35240-e09393a1-824b-4a45-80ab-80fbc0803567"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:32.000Z",
+          "updatedAt": "2026-10-22T02:03:32.000Z",
+          "uid": "35240-b38ec5ee-2d15-4ea4-ab33-6f5e7298c6f6"
+        }
+      ],
+      "id": "bbc8112f-6e52-487a-9659-8f4a1e959196",
+      "createdAt": "2026-10-22T02:03:32.000Z",
+      "updatedAt": "2026-10-22T02:03:32.000Z",
+      "uid": "35240-bbc8112f-6e52-487a-9659-8f4a1e959196"
+    },
+    {
+      "name": "?action=DeleteClient",
+      "item": [
+        {
+          "name": "Delete Client",
+          "id": "68b29fa4-5fb1-4306-a42f-03b0d782d0ae",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -700,458 +887,140 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
                   "key": "clientid",
                   "value": "<integer>"
                 },
                 {
-                  "disabled": false,
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "responsetype",
                   "value": "json"
                 },
                 {
-                  "disabled": false,
                   "key": "secret",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
-                  "key": "firstname",
-                  "value": "<string>"
+                  "key": "deleteusers",
+                  "value": "<boolean>"
                 },
                 {
-                  "disabled": false,
-                  "key": "lastname",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<email>"
-                },
-                {
-                  "disabled": false,
-                  "key": "address1",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "address2",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "city",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "state",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "postcode",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "country",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "phonenumber",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "password2",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "currency",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "groupid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "notes",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "status",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "taxexempt",
+                  "key": "deletetransactions",
                   "value": "<boolean>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "51ad553b-8228-47c2-877f-d91a9c25023d",
-              "name": "Client updated successfully.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "clientid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "firstname",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "lastname",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "address1",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "address2",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "city",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "postcode",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "country",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "phonenumber",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "password2",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "currency",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "groupid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "notes",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "taxexempt",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"success\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "444afd2b-ff25-4f5f-aacf-851c0b9f790a",
-          "name": "Delete Client",
-          "request": {
-            "name": "Delete Client",
-            "description": {
-              "content": "Delete a client account from WHMCS.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=DeleteClient",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "DeleteClient"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "clientid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "identifier",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "responsetype",
-                  "value": "json"
-                },
-                {
-                  "disabled": false,
-                  "key": "secret",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "deleteusers",
-                  "value": "<boolean>"
-                },
-                {
-                  "disabled": false,
-                  "key": "deletetransactions",
-                  "value": "<boolean>"
-                }
-              ]
-            }
+            "description": "Delete a client account from WHMCS."
           },
           "response": [
             {
-              "id": "861d54e7-2d00-4ee8-ad52-9a7b8763acd1",
+              "id": "6716252d-570d-47d8-ae42-0dcf78c54e6c",
               "name": "Client deleted successfully.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "urlencoded",
                   "urlencoded": [
                     {
-                      "disabled": false,
                       "key": "clientid",
                       "value": "<integer>"
                     },
                     {
-                      "disabled": false,
                       "key": "identifier",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "responsetype",
                       "value": "json"
                     },
                     {
-                      "disabled": false,
                       "key": "secret",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "deleteusers",
                       "value": "<boolean>"
                     },
                     {
-                      "disabled": false,
                       "key": "deletetransactions",
                       "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
                     }
                   ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"result\": \"success\",\n  \"message\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"result\": \"success\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:03:32.000Z",
+              "updatedAt": "2026-10-22T02:03:32.000Z",
+              "uid": "35240-6716252d-570d-47d8-ae42-0dcf78c54e6c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:03:32.000Z",
+          "updatedAt": "2026-10-22T02:03:32.000Z",
+          "uid": "35240-68b29fa4-5fb1-4306-a42f-03b0d782d0ae"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your WHMCS installation domain",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "example.com",
-      "key": "your-domain"
-    },
-    {
-      "type": "string",
-      "value": "https://{{your-domain}}/includes/api.php",
-      "key": "baseUrl"
+      "id": "6b847158-bade-4946-b15a-b336eaea975b",
+      "createdAt": "2026-10-22T02:03:32.000Z",
+      "updatedAt": "2026-10-22T02:03:32.000Z",
+      "uid": "35240-6b847158-bade-4946-b15a-b336eaea975b"
     }
   ],
   "auth": {
@@ -1159,25 +1028,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "identifier"
+        "value": "identifier",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "7a9bcf42-902c-4034-b39b-7f4458a34836",
-    "name": "WHMCS Authentication Clients API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "your-domain",
+      "value": "example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{your-domain}}/includes/api.php"
     }
-  }
+  ]
 }

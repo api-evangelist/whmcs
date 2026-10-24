@@ -1,44 +1,174 @@
 {
+  "info": {
+    "_postman_id": "11ccab72-119c-4e52-a695-1e0e419f2cd1",
+    "name": "WHMCS Authentication API",
+    "description": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:03:20.000Z",
+    "updatedAt": "2026-10-22T02:03:20.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-11ccab72-119c-4e52-a695-1e0e419f2cd1"
+  },
   "item": [
     {
-      "id": "dd5a9023-f267-44c6-920f-e45a90fdb27e",
-      "name": "Authentication",
-      "description": {
-        "content": "OAuth and SSO authentication operations",
-        "type": "text/plain"
-      },
+      "name": "?action=ValidateLogin",
       "item": [
         {
-          "id": "615f910e-f206-4d5e-b670-8972be726b9b",
           "name": "Validate Login",
+          "id": "035a769c-36d1-4ca2-94c4-b7cabaca8d56",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Validate Login",
-            "description": {
-              "content": "Validate client login credentials against WHMCS.",
-              "type": "text/plain"
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "<email>"
+                },
+                {
+                  "key": "identifier",
+                  "value": "<string>"
+                },
+                {
+                  "key": "password2",
+                  "value": "<string>"
+                },
+                {
+                  "key": "responsetype",
+                  "value": "json"
+                },
+                {
+                  "key": "secret",
+                  "value": "<string>"
+                }
+              ]
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=ValidateLogin",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "ValidateLogin"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Validate client login credentials against WHMCS."
+          },
+          "response": [
+            {
+              "id": "7f04e3a9-197c-4317-8128-60faf853de3c",
+              "name": "Login validation result.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "password2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"userid\": \"<integer>\",\n  \"passwordreset\": \"<boolean>\"\n}",
+              "createdAt": "2026-10-22T02:03:21.000Z",
+              "updatedAt": "2026-10-22T02:03:21.000Z",
+              "uid": "35240-7f04e3a9-197c-4317-8128-60faf853de3c"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:21.000Z",
+          "updatedAt": "2026-10-22T02:03:21.000Z",
+          "uid": "35240-035a769c-36d1-4ca2-94c4-b7cabaca8d56"
+        }
+      ],
+      "id": "74035b1f-88f1-4e53-ba39-b663c60d7044",
+      "createdAt": "2026-10-22T02:03:21.000Z",
+      "updatedAt": "2026-10-22T02:03:21.000Z",
+      "uid": "35240-74035b1f-88f1-4e53-ba39-b663c60d7044"
+    },
+    {
+      "name": "?action=CreateSsoToken",
+      "item": [
+        {
+          "name": "Create SSO Token",
+          "id": "380ad576-2b01-4545-a7f5-875ebd33edae",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -49,308 +179,140 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<email>"
-                },
-                {
-                  "disabled": false,
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
-                  "key": "password2",
+                  "key": "secret",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "responsetype",
                   "value": "json"
                 },
                 {
-                  "disabled": false,
-                  "key": "secret",
+                  "key": "client_id",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "admin_user",
+                  "value": "<string>"
+                },
+                {
+                  "key": "sso_destination",
                   "value": "<string>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "02607216-efab-44a7-bf9a-8df7b4e4a424",
-              "name": "Login validation result.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "password2",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"userid\": 61,\n  \"passwordreset\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2aabf0e8-96bf-4b52-8193-d9796e4ce90c",
-          "name": "Create SSO Token",
-          "request": {
-            "name": "Create SSO Token",
-            "description": {
-              "content": "Create a single sign-on token for a client or admin user.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=CreateSsoToken",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "CreateSsoToken"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "identifier",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "secret",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "responsetype",
-                  "value": "json"
-                },
-                {
-                  "disabled": false,
-                  "key": "client_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "admin_user",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "sso_destination",
-                  "value": "<string>"
-                }
-              ]
-            }
+            "description": "Create a single sign-on token for a client or admin user."
           },
           "response": [
             {
-              "id": "5be0a4e2-858f-4f98-9e99-afec83da5594",
+              "id": "4812dc90-b870-45fa-9f33-ad29c497e610",
               "name": "SSO token created.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "urlencoded",
                   "urlencoded": [
                     {
-                      "disabled": false,
                       "key": "identifier",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "secret",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "responsetype",
                       "value": "json"
                     },
                     {
-                      "disabled": false,
                       "key": "client_id",
                       "value": "<integer>"
                     },
                     {
-                      "disabled": false,
                       "key": "admin_user",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "sso_destination",
                       "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
                     }
                   ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"result\": \"string\",\n  \"access_token\": \"string\",\n  \"redirect_url\": \"string\",\n  \"expires_at\": \"2004-06-14T10:18:53.509Z\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"access_token\": \"<string>\",\n  \"redirect_url\": \"<string>\",\n  \"expires_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-10-22T02:03:21.000Z",
+              "updatedAt": "2026-10-22T02:03:21.000Z",
+              "uid": "35240-4812dc90-b870-45fa-9f33-ad29c497e610"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:03:21.000Z",
+          "updatedAt": "2026-10-22T02:03:21.000Z",
+          "uid": "35240-380ad576-2b01-4545-a7f5-875ebd33edae"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your WHMCS installation domain",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "example.com",
-      "key": "your-domain"
-    },
-    {
-      "type": "string",
-      "value": "https://{{your-domain}}/includes/api.php",
-      "key": "baseUrl"
+      "id": "46b0c909-283f-4449-98e2-02003d57e56d",
+      "createdAt": "2026-10-22T02:03:21.000Z",
+      "updatedAt": "2026-10-22T02:03:21.000Z",
+      "uid": "35240-46b0c909-283f-4449-98e2-02003d57e56d"
     }
   ],
   "auth": {
@@ -358,25 +320,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "identifier"
+        "value": "identifier",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "1207e124-c72d-49d8-88e0-b09872ea87a5",
-    "name": "WHMCS Authentication API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "your-domain",
+      "value": "example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{your-domain}}/includes/api.php"
     }
-  }
+  ]
 }

@@ -1,44 +1,206 @@
 {
+  "info": {
+    "_postman_id": "68aae05c-33bc-4b86-be60-8a1a9472a6fa",
+    "name": "WHMCS Orders API",
+    "description": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:03:42.000Z",
+    "updatedAt": "2026-10-22T02:03:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-68aae05c-33bc-4b86-be60-8a1a9472a6fa"
+  },
   "item": [
     {
-      "id": "04454a52-e39e-417f-803d-0bd758efdd4e",
-      "name": "Orders",
-      "description": {
-        "content": "Order and quote management operations",
-        "type": "text/plain"
-      },
+      "name": "?action=GetOrders",
       "item": [
         {
-          "id": "71527425-7cb3-474e-8833-34f54edac3d2",
           "name": "Get Orders",
+          "id": "6c929960-b584-46eb-9c06-398a73d8d87c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Orders",
-            "description": {
-              "content": "Retrieve a list of orders from WHMCS.",
-              "type": "text/plain"
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "identifier",
+                  "value": "<string>"
+                },
+                {
+                  "key": "secret",
+                  "value": "<string>"
+                },
+                {
+                  "key": "responsetype",
+                  "value": "json"
+                },
+                {
+                  "key": "limitstart",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "limitnum",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "id",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "userid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "requestor_id",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ]
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=GetOrders",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "GetOrders"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Retrieve a list of orders from WHMCS."
+          },
+          "response": [
+            {
+              "id": "9e8050c0-c8ce-45e9-9f36-c70bce2a4201",
+              "name": "List of orders.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "limitstart",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limitnum",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "userid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "requestor_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"totalresults\": \"<integer>\",\n  \"startnumber\": \"<integer>\",\n  \"numreturned\": \"<integer>\",\n  \"orders\": {\n    \"order\": [\n      {\n        \"id\": \"<integer>\",\n        \"ordernum\": \"<string>\",\n        \"userid\": \"<integer>\",\n        \"contactid\": \"<integer>\",\n        \"date\": \"<dateTime>\",\n        \"currencyprefix\": \"<string>\",\n        \"currencysuffix\": \"<string>\",\n        \"amount\": \"<float>\",\n        \"status\": \"<string>\",\n        \"paymentmethod\": \"<string>\",\n        \"invoiceid\": \"<integer>\",\n        \"notes\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"ordernum\": \"<string>\",\n        \"userid\": \"<integer>\",\n        \"contactid\": \"<integer>\",\n        \"date\": \"<dateTime>\",\n        \"currencyprefix\": \"<string>\",\n        \"currencysuffix\": \"<string>\",\n        \"amount\": \"<float>\",\n        \"status\": \"<string>\",\n        \"paymentmethod\": \"<string>\",\n        \"invoiceid\": \"<integer>\",\n        \"notes\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-10-22T02:03:42.000Z",
+              "updatedAt": "2026-10-22T02:03:42.000Z",
+              "uid": "35240-9e8050c0-c8ce-45e9-9f36-c70bce2a4201"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:42.000Z",
+          "updatedAt": "2026-10-22T02:03:42.000Z",
+          "uid": "35240-6c929960-b584-46eb-9c06-398a73d8d87c"
+        }
+      ],
+      "id": "05c38a04-483f-484e-9eb7-fd8c19df02e2",
+      "createdAt": "2026-10-22T02:03:42.000Z",
+      "updatedAt": "2026-10-22T02:03:42.000Z",
+      "uid": "35240-05c38a04-483f-484e-9eb7-fd8c19df02e2"
+    },
+    {
+      "name": "?action=AddOrder",
+      "item": [
+        {
+          "name": "Add Order",
+          "id": "b9426dc5-9cc1-4333-98bc-5978cabf820f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -49,193 +211,168 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
+                  "key": "clientid",
+                  "value": "<integer>"
+                },
+                {
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
-                  "key": "secret",
+                  "key": "paymentmethod",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
                   "key": "responsetype",
                   "value": "json"
                 },
                 {
-                  "disabled": false,
-                  "key": "limitstart",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limitnum",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "userid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "requestor_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "status",
+                  "key": "secret",
                   "value": "<string>"
+                },
+                {
+                  "key": "promocode",
+                  "value": "<string>"
+                },
+                {
+                  "key": "affid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "noemail",
+                  "value": "<boolean>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "d2c683c1-cdc6-4488-9b6e-293ecc5e5ea4",
-              "name": "List of orders.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "limitstart",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "limitnum",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "userid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "requestor_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "status",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"totalresults\": 2013,\n  \"startnumber\": 2183,\n  \"numreturned\": 5422,\n  \"orders\": {\n    \"order\": [\n      {\n        \"id\": 463,\n        \"ordernum\": \"string\",\n        \"userid\": 2118,\n        \"contactid\": 8523,\n        \"date\": \"1960-08-19T12:37:09.166Z\",\n        \"currencyprefix\": \"string\",\n        \"currencysuffix\": \"string\",\n        \"amount\": 9674.245107214372,\n        \"status\": \"string\",\n        \"paymentmethod\": \"string\",\n        \"invoiceid\": 1760,\n        \"notes\": \"string\"\n      },\n      {\n        \"id\": 9924,\n        \"ordernum\": \"string\",\n        \"userid\": 3440,\n        \"contactid\": 4561,\n        \"date\": \"2025-02-15T17:44:16.614Z\",\n        \"currencyprefix\": \"string\",\n        \"currencysuffix\": \"string\",\n        \"amount\": 9951.685518860173,\n        \"status\": \"string\",\n        \"paymentmethod\": \"string\",\n        \"invoiceid\": 6397,\n        \"notes\": \"string\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2dce0f1f-0639-4668-940c-0f8c92cd25cf",
-          "name": "Add Order",
-          "request": {
-            "name": "Add Order",
-            "description": {
-              "content": "Create a new order in WHMCS.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=AddOrder",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "AddOrder"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Create a new order in WHMCS."
+          },
+          "response": [
+            {
+              "id": "2cbd19c7-04a0-436b-9644-b2fd5c2115ad",
+              "name": "Order created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "clientid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paymentmethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "promocode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "affid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "noemail",
+                      "value": "<boolean>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"orderid\": \"<integer>\",\n  \"productids\": \"<string>\",\n  \"addonids\": \"<string>\",\n  \"domainids\": \"<string>\",\n  \"invoiceid\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:03:42.000Z",
+              "updatedAt": "2026-10-22T02:03:42.000Z",
+              "uid": "35240-2cbd19c7-04a0-436b-9644-b2fd5c2115ad"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:42.000Z",
+          "updatedAt": "2026-10-22T02:03:42.000Z",
+          "uid": "35240-b9426dc5-9cc1-4333-98bc-5978cabf820f"
+        }
+      ],
+      "id": "ce6a2d67-e2eb-432d-b673-cedeb2f11791",
+      "createdAt": "2026-10-22T02:03:42.000Z",
+      "updatedAt": "2026-10-22T02:03:42.000Z",
+      "uid": "35240-ce6a2d67-e2eb-432d-b673-cedeb2f11791"
+    },
+    {
+      "name": "?action=GetProducts",
+      "item": [
+        {
+          "name": "Get Products",
+          "id": "693bdb9c-be64-49ea-bc3c-d347d926722d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -246,338 +383,140 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
-                  "key": "clientid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
                   "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
-                  "key": "paymentmethod",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "responsetype",
-                  "value": "json"
-                },
-                {
-                  "disabled": false,
                   "key": "secret",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
-                  "key": "promocode",
-                  "value": "<string>"
+                  "key": "responsetype",
+                  "value": "json"
                 },
                 {
-                  "disabled": false,
-                  "key": "affid",
+                  "key": "pid",
                   "value": "<integer>"
                 },
                 {
-                  "disabled": false,
-                  "key": "noemail",
-                  "value": "<boolean>"
+                  "key": "gid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "module",
+                  "value": "<string>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "f9654d56-54ba-4140-b1a8-dcb2e96233b9",
-              "name": "Order created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "clientid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "paymentmethod",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "promocode",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "affid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "noemail",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"orderid\": 417,\n  \"productids\": \"string\",\n  \"addonids\": \"string\",\n  \"domainids\": \"string\",\n  \"invoiceid\": 2288\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7b86bbb3-89dd-431a-af61-70de3f982da4",
-          "name": "Get Products",
-          "request": {
-            "name": "Get Products",
-            "description": {
-              "content": "Retrieve a list of products and services available in WHMCS.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=GetProducts",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "GetProducts"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "identifier",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "secret",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "responsetype",
-                  "value": "json"
-                },
-                {
-                  "disabled": false,
-                  "key": "pid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "gid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "module",
-                  "value": "<string>"
-                }
-              ]
-            }
+            "description": "Retrieve a list of products and services available in WHMCS."
           },
           "response": [
             {
-              "id": "02026f41-8aca-4778-ad7b-dfc4bbea990f",
+              "id": "6c93ce74-72a5-496d-a9b5-6783fba3fe4e",
               "name": "List of products.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "urlencoded",
                   "urlencoded": [
                     {
-                      "disabled": false,
                       "key": "identifier",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "secret",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "responsetype",
                       "value": "json"
                     },
                     {
-                      "disabled": false,
                       "key": "pid",
                       "value": "<integer>"
                     },
                     {
-                      "disabled": false,
                       "key": "gid",
                       "value": "<integer>"
                     },
                     {
-                      "disabled": false,
                       "key": "module",
                       "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
                     }
                   ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"result\": \"string\",\n  \"totalresults\": 33,\n  \"products\": {\n    \"product\": [\n      {\n        \"pid\": 314,\n        \"gid\": 7869,\n        \"type\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"module\": \"string\",\n        \"paytype\": \"string\",\n        \"pricing\": {}\n      },\n      {\n        \"pid\": 3976,\n        \"gid\": 6393,\n        \"type\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"module\": \"string\",\n        \"paytype\": \"string\",\n        \"pricing\": {}\n      }\n    ]\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"totalresults\": \"<integer>\",\n  \"products\": {\n    \"product\": [\n      {\n        \"pid\": \"<integer>\",\n        \"gid\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"module\": \"<string>\",\n        \"paytype\": \"<string>\",\n        \"pricing\": {}\n      },\n      {\n        \"pid\": \"<integer>\",\n        \"gid\": \"<integer>\",\n        \"type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"module\": \"<string>\",\n        \"paytype\": \"<string>\",\n        \"pricing\": {}\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-10-22T02:03:42.000Z",
+              "updatedAt": "2026-10-22T02:03:42.000Z",
+              "uid": "35240-6c93ce74-72a5-496d-a9b5-6783fba3fe4e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:03:42.000Z",
+          "updatedAt": "2026-10-22T02:03:42.000Z",
+          "uid": "35240-693bdb9c-be64-49ea-bc3c-d347d926722d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your WHMCS installation domain",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "example.com",
-      "key": "your-domain"
-    },
-    {
-      "type": "string",
-      "value": "https://{{your-domain}}/includes/api.php",
-      "key": "baseUrl"
+      "id": "85766dfc-368e-4b10-a7d4-87d6acd761cc",
+      "createdAt": "2026-10-22T02:03:42.000Z",
+      "updatedAt": "2026-10-22T02:03:42.000Z",
+      "uid": "35240-85766dfc-368e-4b10-a7d4-87d6acd761cc"
     }
   ],
   "auth": {
@@ -585,25 +524,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "identifier"
+        "value": "identifier",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "88b61d7e-2adc-4be4-b3e8-ad898a1a8e34",
-    "name": "WHMCS Authentication Orders API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "your-domain",
+      "value": "example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{your-domain}}/includes/api.php"
     }
-  }
+  ]
 }

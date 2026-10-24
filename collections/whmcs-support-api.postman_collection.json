@@ -1,44 +1,206 @@
 {
+  "info": {
+    "_postman_id": "3fb1a999-88d0-4f2d-8271-8b40c0f1955f",
+    "name": "WHMCS Support API",
+    "description": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:03:48.000Z",
+    "updatedAt": "2026-10-22T02:03:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3fb1a999-88d0-4f2d-8271-8b40c0f1955f"
+  },
   "item": [
     {
-      "id": "e859a17e-9076-41fa-96ef-076980aea396",
-      "name": "Support",
-      "description": {
-        "content": "Ticket and announcement management",
-        "type": "text/plain"
-      },
+      "name": "?action=GetTickets",
       "item": [
         {
-          "id": "9dd67d2d-c747-4737-a0f4-cb7f67abaef1",
           "name": "Get Tickets",
+          "id": "f205893b-ae5b-406f-a6b7-8796ffe2760f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get Tickets",
-            "description": {
-              "content": "Retrieve a list of support tickets from WHMCS.",
-              "type": "text/plain"
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "identifier",
+                  "value": "<string>"
+                },
+                {
+                  "key": "secret",
+                  "value": "<string>"
+                },
+                {
+                  "key": "responsetype",
+                  "value": "json"
+                },
+                {
+                  "key": "limitstart",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "limitnum",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "clientid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "deptid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "key": "subject",
+                  "value": "<string>"
+                }
+              ]
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=GetTickets",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "GetTickets"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
+            "description": "Retrieve a list of support tickets from WHMCS."
+          },
+          "response": [
+            {
+              "id": "64280108-0fbc-465a-84b6-aee4a6b3654c",
+              "name": "List of support tickets.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "identifier",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "secret",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "responsetype",
+                      "value": "json"
+                    },
+                    {
+                      "key": "limitstart",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limitnum",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "clientid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deptid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subject",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"totalresults\": \"<integer>\",\n  \"startnumber\": \"<integer>\",\n  \"numreturned\": \"<integer>\",\n  \"tickets\": {\n    \"ticket\": [\n      {\n        \"id\": \"<integer>\",\n        \"tid\": \"<string>\",\n        \"deptid\": \"<integer>\",\n        \"deptname\": \"<string>\",\n        \"userid\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"email\": \"<email>\",\n        \"subject\": \"<string>\",\n        \"status\": \"<string>\",\n        \"priority\": \"Medium\",\n        \"date\": \"<dateTime>\",\n        \"lastreply\": \"<dateTime>\",\n        \"flag\": \"<integer>\",\n        \"service\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"tid\": \"<string>\",\n        \"deptid\": \"<integer>\",\n        \"deptname\": \"<string>\",\n        \"userid\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"email\": \"<email>\",\n        \"subject\": \"<string>\",\n        \"status\": \"<string>\",\n        \"priority\": \"Medium\",\n        \"date\": \"<dateTime>\",\n        \"lastreply\": \"<dateTime>\",\n        \"flag\": \"<integer>\",\n        \"service\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-10-22T02:03:48.000Z",
+              "updatedAt": "2026-10-22T02:03:48.000Z",
+              "uid": "35240-64280108-0fbc-465a-84b6-aee4a6b3654c"
+            }
+          ],
+          "createdAt": "2026-10-22T02:03:48.000Z",
+          "updatedAt": "2026-10-22T02:03:48.000Z",
+          "uid": "35240-f205893b-ae5b-406f-a6b7-8796ffe2760f"
+        }
+      ],
+      "id": "ff465448-8b8d-4e32-b857-316f304ce93f",
+      "createdAt": "2026-10-22T02:03:48.000Z",
+      "updatedAt": "2026-10-22T02:03:48.000Z",
+      "uid": "35240-ff465448-8b8d-4e32-b857-316f304ce93f"
+    },
+    {
+      "name": "?action=OpenTicket",
+      "item": [
+        {
+          "name": "Open Ticket",
+          "id": "ea89a5e9-cc0a-4ada-8c82-591edb876418",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -49,388 +211,172 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "urlencoded",
               "urlencoded": [
                 {
-                  "disabled": false,
-                  "key": "identifier",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "secret",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "responsetype",
-                  "value": "json"
-                },
-                {
-                  "disabled": false,
-                  "key": "limitstart",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limitnum",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "clientid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
                   "key": "deptid",
                   "value": "<integer>"
                 },
                 {
-                  "disabled": false,
-                  "key": "status",
+                  "key": "identifier",
                   "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>"
+                },
+                {
+                  "key": "priority",
+                  "value": "High"
+                },
+                {
+                  "key": "responsetype",
+                  "value": "json"
+                },
+                {
+                  "key": "secret",
+                  "value": "<string>"
+                },
+                {
                   "key": "subject",
                   "value": "<string>"
+                },
+                {
+                  "key": "clientid",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "key": "email",
+                  "value": "<email>"
                 }
               ]
-            }
-          },
-          "response": [
-            {
-              "id": "22c47e00-bf3d-420a-aedf-d23516c0b119",
-              "name": "List of support tickets.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "identifier",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "secret",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "responsetype",
-                      "value": "json"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "limitstart",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "limitnum",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "clientid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "deptid",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "status",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "subject",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"result\": \"string\",\n  \"totalresults\": 2324,\n  \"startnumber\": 1797,\n  \"numreturned\": 2021,\n  \"tickets\": {\n    \"ticket\": [\n      {\n        \"id\": 3247,\n        \"tid\": \"string\",\n        \"deptid\": 984,\n        \"deptname\": \"string\",\n        \"userid\": 7283,\n        \"name\": \"string\",\n        \"email\": \"eLQTzEiIOk@FXsTeNNzgSP.mpu\",\n        \"subject\": \"string\",\n        \"status\": \"string\",\n        \"priority\": \"Low\",\n        \"date\": \"1969-01-19T21:26:05.771Z\",\n        \"lastreply\": \"2017-05-17T04:54:08.502Z\",\n        \"flag\": 5696,\n        \"service\": \"string\"\n      },\n      {\n        \"id\": 201,\n        \"tid\": \"string\",\n        \"deptid\": 8790,\n        \"deptname\": \"string\",\n        \"userid\": 6281,\n        \"name\": \"string\",\n        \"email\": \"6OSWgl54hK0KSMO@sCMucHRaArslJM.bmp\",\n        \"subject\": \"string\",\n        \"status\": \"string\",\n        \"priority\": \"Medium\",\n        \"date\": \"2017-11-15T20:39:15.855Z\",\n        \"lastreply\": \"1990-09-09T20:53:41.160Z\",\n        \"flag\": 3235,\n        \"service\": \"string\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d016b083-9b0d-43d3-8085-a485602e3784",
-          "name": "Open Ticket",
-          "request": {
-            "name": "Open Ticket",
-            "description": {
-              "content": "Open a new support ticket in WHMCS.",
-              "type": "text/plain"
             },
             "url": {
-              "path": [
-                ""
-              ],
+              "raw": "{{baseUrl}}/?action=OpenTicket",
               "host": [
                 "{{baseUrl}}"
+              ],
+              "path": [
+                ""
               ],
               "query": [
                 {
                   "key": "action",
                   "value": "OpenTicket"
                 }
-              ],
-              "variable": [
-                {
-                  "description": "Your WHMCS installation domain",
-                  "type": "any",
-                  "value": "{{your-domain}}",
-                  "key": "your-domain"
-                }
               ]
             },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "deptid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "identifier",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "message",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "priority",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "responsetype",
-                  "value": "json"
-                },
-                {
-                  "disabled": false,
-                  "key": "secret",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "subject",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "clientid",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<email>"
-                }
-              ]
-            }
+            "description": "Open a new support ticket in WHMCS."
           },
           "response": [
             {
-              "id": "14c4d184-e157-40fe-a804-cf408fce127c",
+              "id": "06464301-9ae0-4ef0-bcd9-3bb30cea5037",
               "name": "Ticket opened.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "identifier",
-                      "value": "<API Key>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your WHMCS installation domain",
-                      "type": "any",
-                      "value": "{{your-domain}}",
-                      "key": "your-domain"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "urlencoded",
                   "urlencoded": [
                     {
-                      "disabled": false,
                       "key": "deptid",
                       "value": "<integer>"
                     },
                     {
-                      "disabled": false,
                       "key": "identifier",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "message",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "priority",
-                      "value": "<string>"
+                      "value": "High"
                     },
                     {
-                      "disabled": false,
                       "key": "responsetype",
                       "value": "json"
                     },
                     {
-                      "disabled": false,
                       "key": "secret",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "subject",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "clientid",
                       "value": "<integer>"
                     },
                     {
-                      "disabled": false,
                       "key": "name",
                       "value": "<string>"
                     },
                     {
-                      "disabled": false,
                       "key": "email",
                       "value": "<email>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/?identifier=<API Key>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Added as a part of security scheme: apikey",
+                      "key": "identifier",
+                      "value": "<API Key>"
                     }
                   ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"result\": \"string\",\n  \"id\": 4070,\n  \"tid\": \"string\",\n  \"c\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"result\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"tid\": \"<string>\",\n  \"c\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:03:48.000Z",
+              "updatedAt": "2026-10-22T02:03:48.000Z",
+              "uid": "35240-06464301-9ae0-4ef0-bcd9-3bb30cea5037"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:03:48.000Z",
+          "updatedAt": "2026-10-22T02:03:48.000Z",
+          "uid": "35240-ea89a5e9-cc0a-4ada-8c82-591edb876418"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your WHMCS installation domain",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "example.com",
-      "key": "your-domain"
-    },
-    {
-      "type": "string",
-      "value": "https://{{your-domain}}/includes/api.php",
-      "key": "baseUrl"
+      "id": "670c2725-af05-42c6-abc9-a3c05d638617",
+      "createdAt": "2026-10-22T02:03:48.000Z",
+      "updatedAt": "2026-10-22T02:03:48.000Z",
+      "uid": "35240-670c2725-af05-42c6-abc9-a3c05d638617"
     }
   ],
   "auth": {
@@ -438,25 +384,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "identifier"
+        "value": "identifier",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "query"
+        "value": "query",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2a1898a0-04c7-48e7-8a70-178e49a6c08e",
-    "name": "WHMCS Authentication Support API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The WHMCS API provides an interface to perform operations and actions within WHMCS from external applications and scripts. It supports client management, billing, orders, domain management, support tickets, and system administration.\n\nContact Support:\n Name: WHMCS Developer Documentation",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "your-domain",
+      "value": "example.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{your-domain}}/includes/api.php"
     }
-  }
+  ]
 }
